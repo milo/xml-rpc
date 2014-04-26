@@ -1,0 +1,6 @@
+<methodCall>
+	<methodName>namespace.myMethod</methodName>
+	<params>
+		<param><value/></param>
+	</params>
+</methodCall>

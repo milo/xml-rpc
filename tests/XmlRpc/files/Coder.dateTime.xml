@@ -1,0 +1,18 @@
+<value>
+  <array>
+    <data>
+      <value>
+        <dateTime.iso8601>2000-01-20T12:30:00+02:30</dateTime.iso8601>
+      </value>
+      <value>
+        <dateTime.iso8601>2000-01-20T12:30:00</dateTime.iso8601>
+      </value>
+      <value>
+        <dateTime.iso8601>20000120T12:30:00+02:30</dateTime.iso8601>
+      </value>
+      <value>
+        <dateTime.iso8601>20000120T12:30:00</dateTime.iso8601>
+      </value>
+    </data>
+  </array>
+</value>
