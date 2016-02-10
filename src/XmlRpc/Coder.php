@@ -80,7 +80,10 @@ class Coder extends Sanity
 			case 'string':
 				return $textContent;
 
+			case 'i1':
+			case 'i2':
 			case 'i4':
+			case 'i8':
 			case 'int':
 				return (int) $textContent;  // presume PHP has 32-bit integer at least
 
