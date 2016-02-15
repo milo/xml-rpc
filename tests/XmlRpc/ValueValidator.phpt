@@ -33,13 +33,13 @@ function schemaFail($value, $schema, $message)
 
 
 # String patterns
-pass( array(), '*' );
-pass( array('', TRUE, 0), '*[]' );
+pass( [], '*' );
+pass( ['', TRUE, 0], '*[]' );
 
-pass( array(), 'array' );
+pass( [], 'array' );
 fail( NULL, 'array' );
 
-pass( array(), '[]' );
+pass( [], '[]' );
 fail( NULL, '[]' );
 
 pass( TRUE, 'bool' );
@@ -70,7 +70,7 @@ pass( fopen(__FILE__, 'r'), 'resource' );
 fail( NULL, 'object' );
 
 pass( 0, 'scalar' );
-fail( array(), 'scalar' );
+fail( [], 'scalar' );
 
 pass( '', 'string' );
 fail( NULL, 'string' );
@@ -78,7 +78,7 @@ fail( NULL, 'string' );
 pass( new DateTime, '\DateTime' );
 fail( new stdClass, '\DateTime' );
 
-pass( array(NULL, NULL), 'null[]' );
+pass( [NULL, NULL], 'null[]' );
 
 
 
@@ -106,54 +106,54 @@ Assert::null( $e->getPrevious() );
 
 
 # Patterns by array
-fail( NULL, array(), 'Value of testVar must be an array.' );
+fail( NULL, [], 'Value of testVar must be an array.' );
 
 # Optional vs. required member
-pass( array(), array('foo?' => '*') );
-fail( array(), array('foo' => '*'), "Missing member 'foo' of testVar value." );
+pass( [], ['foo?' => '*'] );
+fail( [], ['foo' => '*'], "Missing member 'foo' of testVar value." );
 
 # Other members allowed
-pass( array('a'=>'', 'b'=>'', 'c'=>''), array('a'=>'string', '*'=>'*') );
-fail( array('a'=>'', 'b'=>'', 'c'=>''), array('a'=>'string'), 'Value of testVar contains not allowed member(s) [b, c].' );
+pass( ['a'=>'', 'b'=>'', 'c'=>''], ['a'=>'string', '*'=>'*'] );
+fail( ['a'=>'', 'b'=>'', 'c'=>''], ['a'=>'string'], 'Value of testVar contains not allowed member(s) [b, c].' );
 
 # Array required
-pass( array('a'=>array()), array('a'=>'string[]') );
-fail( array('a'=>NULL), array('a'=>'string[]'), "Value of testVar[a] does not match to 'string[]'." );
+pass( ['a'=>[]], ['a'=>'string[]'] );
+fail( ['a'=>NULL], ['a'=>'string[]'], "Value of testVar[a] does not match to 'string[]'." );
 
 # List (array indexed 0 by one)
-fail( array('a'=>''), array('string', 'string'), 'Value of testVar must be a list.' );
-fail( array('', '', ''), array('string', 'string'), 'Value of testVar must be a list with 2 items but contains 3.' );
+fail( ['a'=>''], ['string', 'string'], 'Value of testVar must be a list.' );
+fail( ['', '', ''], ['string', 'string'], 'Value of testVar must be a list with 2 items but contains 3.' );
 
 
 
 # Complex example
-$value = array(
+$value = [
 	'name' => 'Miloslav Hůla',
 	'born' => new DateTime,
-	'languages' => array('cs', 'en', 'php'),
-	'address' => array(
+	'languages' => ['cs', 'en', 'php'],
+	'address' => [
 		'city' => 'Sin',
 		'street' => 'Jump',
 		'zip' => NULL,
 		'country' => 'Radio',
-	),
+	],
 	'score' => 69,
 	'active' => TRUE,
-);
+];
 
-$schema = array(
+$schema = [
 	'name' => 'string',
 	'nick?' => 'string',
 	'born' => '\DateTime',
 	'languages' => 'string[]',
-	'address' => array(
+	'address' => [
 		'city' => 'string',
 		'street' => 'string',
 		'zip' => 'string|null',
 		'country?' => 'string',
-	),
+	],
 	'score' => 'int',
 	'active' => 'bool',
-);
+];
 
 pass( $value, $schema );

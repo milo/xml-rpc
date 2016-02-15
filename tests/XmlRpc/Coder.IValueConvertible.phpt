@@ -21,7 +21,7 @@ class Value1 implements IValueConvertible
 {
 	public function getXmlRpcValue()
 	{
-		return array(231);
+		return [231];
 	}
 }
 

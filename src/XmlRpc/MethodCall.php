@@ -23,7 +23,7 @@ class MethodCall extends Sanity implements IMethod
 	 * @param  string  method name
 	 * @param  array  method parameters
 	 */
-	public function __construct($name, array $parameters = array())
+	public function __construct($name, array $parameters = [])
 	{
 		$this->name = (string) $name;
 		$this->parameters = $parameters;

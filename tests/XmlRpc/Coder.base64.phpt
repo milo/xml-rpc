@@ -35,7 +35,7 @@ Assert::same('<value><string>Binary--string</string></value>', $doc->saveXML($co
 
 
 # Binary string detection
-$values = array();
+$values = [];
 for ($i = 0; $i <= 0xFF; $i++) {
 	$binary = ($i >= 0x00 && $i <= 0x08) || $i === 0x0B || $i === 0x0C || ($i >= 0x0E && $i <= 0x1F);
 

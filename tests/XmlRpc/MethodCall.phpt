@@ -16,7 +16,7 @@ $methodCall = $convertor->fromXml(file_get_contents(__DIR__ . '/files/MethodCall
 
 Assert::type( 'Milo\XmlRpc\MethodCall', $methodCall );
 Assert::same( 'namespace.myMethod', $methodCall->getName() );
-Assert::same( array(''), $methodCall->getParameters() );
+Assert::same( [''], $methodCall->getParameters() );
 Assert::same( 1, $methodCall->getParameterCount() );
 
 
@@ -24,5 +24,5 @@ Assert::same( 1, $methodCall->getParameterCount() );
 $methodCall = new Milo\XmlRpc\MethodCall('mc');
 Assert::same( '<methodCall><methodName>mc</methodName></methodCall>', $convertor->toXml($methodCall) );
 
-$methodCall = new Milo\XmlRpc\MethodCall('mc', array(1));
+$methodCall = new Milo\XmlRpc\MethodCall('mc', [1]);
 Assert::same( '<methodCall><methodName>mc</methodName><params><param><value><int>1</int></value></param></params></methodCall>', $convertor->toXml($methodCall) );

@@ -119,7 +119,7 @@ class Convertor extends Sanity
 	protected function createMethodCall(DOMDocument $doc)
 	{
 		$name = $doc->getElementsByTagName('methodName')->item(0)->textContent;
-		$parameters = array();
+		$parameters = [];
 		foreach ($doc->getElementsByTagName('param') as $node) {
 			$parameters[] = $this->coder->decodeValueNode($node->firstChild);
 		}

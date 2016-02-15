@@ -18,8 +18,8 @@ $doc->load(__DIR__ . '/files/Coder.nonTaggedString.xml');
 
 
 $var = $coder->decodeValueNode($doc->documentElement);
-Assert::equal(array(
+Assert::equal([
 	' non-tagged string ',
 	' ',
 	'',
-), $var);
+], $var);

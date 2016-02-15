@@ -226,12 +226,12 @@ class Coder extends Sanity
 	 */
 	protected function decodeDateTime($text)
 	{
-		static $formats = array(
+		static $formats = [
 			'Y-m-d\TH:i:sP',
 			'Y-m-d\TH:i:s',
 			'Ymd\TH:i:sP',
 			'Ymd\TH:i:s',
-		);
+		];
 
 		foreach ($formats as $format) {
 			if (($date = \DateTime::createFromFormat($format, $text)) !== FALSE) {
@@ -265,7 +265,7 @@ class Coder extends Sanity
 	 */
 	protected function decodeStructNode(DOMElement $node)
 	{
-		$struct = array();
+		$struct = [];
 		foreach ($node->childNodes as $member) {
 			$name = $member->childNodes->item(0)->textContent;
 			$value = $this->decodeValueNode($member->childNodes->item(1));
@@ -303,7 +303,7 @@ class Coder extends Sanity
 	 */
 	protected function decodeArrayNode(DOMElement $node)
 	{
-		$return = array();
+		$return = [];
 		foreach ($node->childNodes->item(0)->childNodes as $value) {
 			$return[] = $this->decodeValueNode($value);
 		}

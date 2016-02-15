@@ -17,22 +17,22 @@ $doc->loadXML($xml);
 
 
 
-Assert::equal( array('var' => ''), $coder->decodeValueNode($doc->documentElement));
+Assert::equal( ['var' => ''], $coder->decodeValueNode($doc->documentElement));
 
 $coder->decodeStructAsObject = TRUE;
-Assert::equal( (object) array('var' => ''), $coder->decodeValueNode($doc->documentElement));
+Assert::equal( (object) ['var' => ''], $coder->decodeValueNode($doc->documentElement));
 
 
 
-$var = array('');
+$var = [''];
 $xml = '<value><array><data><value><string/></value></data></array></value>';
 Assert::same($xml, $doc->saveXML($coder->encodeValueNode($doc, $var)));
 
-$var = array(1 => '');
+$var = [1 => ''];
 $xml = '<value><struct><member><name>1</name><value><string/></value></member></struct></value>';
 Assert::same($xml, $doc->saveXML($coder->encodeValueNode($doc, $var)));
 
-$var = (object) array(1 => '');
+$var = (object) [1 => ''];
 $xml = '<value><struct><member><name>1</name><value><string/></value></member></struct></value>';
 Assert::same($xml, $doc->saveXML($coder->encodeValueNode($doc, $var)));
 
@@ -46,7 +46,7 @@ $xml = '<value><struct><member><name>a</name><value><string/></value></member></
 Assert::same($xml, $doc->saveXML($coder->encodeValueNode($doc, $var)));
 
 class ToArray2 implements IteratorAggregate {
-	private $data = array('');
+	private $data = [''];
 	function getIterator() {
 		return new ArrayIterator($this->data);
 	}

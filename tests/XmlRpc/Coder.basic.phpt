@@ -19,7 +19,7 @@ $doc->load(__DIR__ . '/files/Coder.basic.xml');
 
 # From XML to PHP
 $var = $coder->decodeValueNode($doc->documentElement);
-Assert::equal(array(
+Assert::equal([
 	'string',
 	'',
 	123,
@@ -29,9 +29,9 @@ Assert::equal(array(
 	-1.256,
 	DateTime::createFromFormat('Y-m-d H:i:s P', '2000-01-20 12:30:00 +00:00'),
 	NULL,
-	array('a' => NULL, 'b' => 'c'),
-	array('1', 1),
-), $var);
+	['a' => NULL, 'b' => 'c'],
+	['1', 1],
+], $var);
 
 
 

@@ -19,7 +19,7 @@ $doc = new DOMDocument;
 
 
 Assert::exception(function() use ($coder, $doc) {
-	$var = array();
+	$var = [];
 	$var[0] = & $var;
 
 	$coder->encodeValueNode($doc, $var);

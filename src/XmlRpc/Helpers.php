@@ -11,7 +11,7 @@ namespace Milo\XmlRpc;
 class Helpers
 {
 	/** @var array */
-	private static $errorHandling = array();
+	private static $errorHandling = [];
 
 
 	/**

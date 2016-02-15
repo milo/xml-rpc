@@ -71,10 +71,10 @@ class MethodFaultResponse extends Sanity implements IMethod
 		$coder = clone $coder;
 		$coder->encodeBinaryAsBase64 = FALSE;
 
-		$struct = (object) array(
+		$struct = (object) [
 			'faultCode' => $this->code,
 			'faultString' => $this->message,
-		);
+		];
 
 		$methodResponseNode = $doc->appendChild($doc->createElement('methodResponse'));
 		$methodResponseNode

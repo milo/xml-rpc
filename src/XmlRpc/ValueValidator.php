@@ -62,7 +62,7 @@ class ValueValidator extends Sanity
 			}
 		}
 
-		$keys = array();
+		$keys = [];
 		$allowOthers = FALSE;
 		foreach ($schema as $index => $pattern) {
 			if ($index === self::ANY) {
@@ -158,9 +158,9 @@ class ValueValidator extends Sanity
 			throw new InvalidSchemaException('Usertypes are not implemented yet. Send me an issue.');
 		}
 
-		static $functions = array('array', 'bool', 'callable', 'double', 'float',
+		static $functions = ['array', 'bool', 'callable', 'double', 'float',
 			'int', 'integer', 'null', 'numeric', 'object', 'resource', 'scalar',
-			'string');
+			'string'];
 
 		if (in_array($pattern->type, $functions, TRUE)) {
 			return call_user_func("is_$pattern->type", $value);
@@ -177,10 +177,10 @@ class ValueValidator extends Sanity
 	protected function parseMember($name)
 	{
 		$optional = is_string($name) && substr($name, -1) === '?';
-		return (object) array(
+		return (object) [
 			'name' => $optional ? substr($name, 0, -1) : $name,
 			'isOptional' => $optional,
-		);
+		];
 	}
 
 
@@ -192,7 +192,7 @@ class ValueValidator extends Sanity
 	 */
 	protected function parsePatterns($pattern)
 	{
-		static $cache = array();
+		static $cache = [];
 
 		if (!is_string($pattern)) {
 			throw new InvalidSchemaException("Pattern must be a string.");
@@ -200,15 +200,15 @@ class ValueValidator extends Sanity
 
 		$patterns = & $cache[$pattern];
 		if ($patterns === NULL) {
-			$patterns = array();
+			$patterns = [];
 			foreach (explode('|', $pattern) as $raw) {
 				preg_match('~^([#\\\\])?(.*?)(\[])?\z~', $raw, $m);
-				$patterns[] = (object) array(
+				$patterns[] = (object) [
 					'type' => $m[2],
 					'isArray' => isset($m[3]),
 					'isClass' => $m[1] === '\\',
 					'isUserType' => $m[1] === '#',
-				);
+				];
 			}
 		}
 
