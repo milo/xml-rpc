@@ -1,5 +1,9 @@
 <?php
 
+if (!extension_loaded('dom')) {
+	throw new LogicException('PHP extension DOM is missing.');
+}
+
 require __DIR__ . '/XmlRpc/exceptions.php';
 require __DIR__ . '/XmlRpc/Helpers.php';
 require __DIR__ . '/XmlRpc/Sanity.php';
