@@ -9,5 +9,4 @@ unset($autoloadFile);
 
 
 Tester\Environment::setup();
-class_alias('Tester\Assert', 'Assert');
 date_default_timezone_set('UTC');

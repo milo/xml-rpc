@@ -6,8 +6,7 @@
  * @author  Miloslav Hůla
  */
 
-use Milo\XmlRpc\Coder,
-	Milo\XmlRpc\IValueConvertible;
+use Tester\Assert;
 
 require __DIR__ . '/../bootstrap.php';
 
@@ -17,7 +16,7 @@ $coder = new Milo\XmlRpc\Coder;
 $doc = new DOMDocument;
 
 
-class Value1 implements IValueConvertible
+class Value1 implements Milo\XmlRpc\IValueConvertible
 {
 	public function getXmlRpcValue()
 	{

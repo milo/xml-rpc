@@ -8,6 +8,8 @@
 
 require __DIR__ . '/../bootstrap.php';
 
+use Tester\Assert;
+
 $converter = new Milo\XmlRpc\Converter;
 
 

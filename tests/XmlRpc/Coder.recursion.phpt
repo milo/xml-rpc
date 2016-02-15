@@ -6,8 +6,7 @@
  * @author  Miloslav Hůla
  */
 
-use Milo\XmlRpc\Coder,
-	Milo\XmlRpc\IValueConvertible;
+use Tester\Assert;
 
 require __DIR__ . '/../bootstrap.php';
 

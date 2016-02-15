@@ -6,6 +6,8 @@
  * @author  Miloslav Hůla
  */
 
+use Tester\Assert;
+
 require __DIR__ . '/../bootstrap.php';
 
 $converter = new Milo\XmlRpc\Converter;
