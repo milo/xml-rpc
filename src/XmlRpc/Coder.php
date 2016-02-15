@@ -15,8 +15,10 @@ use DOMDocument,
  * @author  Miloslav Hůla (https://github.com/milo)
  * @see     http://xmlrpc.scripting.com/spec
  */
-class Coder extends Sanity
+class Coder
 {
+	use Strict;
+
 	/** @var bool  convert <struct> as stdClass object; array otherwise */
 	public $decodeStructAsObject = FALSE;
 

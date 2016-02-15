@@ -8,8 +8,10 @@ namespace Milo\XmlRpc;
  *
  * @author Miloslav Hůla (https://github.com/milo)
  */
-class ValueValidator extends Sanity
+class ValueValidator
 {
+	use Strict;
+
 	/** Any member or any type. */
 	const ANY = '*';
 

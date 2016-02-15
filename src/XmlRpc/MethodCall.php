@@ -10,8 +10,10 @@ use DOMDocument;
  *
  * @author Miloslav Hůla (https://github.com/milo)
  */
-class MethodCall extends Sanity implements IMethod
+class MethodCall implements IMethod
 {
+	use Strict;
+
 	/** @var string */
 	private $name;
 

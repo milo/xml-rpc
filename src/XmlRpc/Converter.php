@@ -10,8 +10,10 @@ use DOMDocument;
  *
  * @author  Miloslav Hůla (https://github.com/milo)
  */
-class Converter extends Sanity
+class Converter
 {
+	use Strict;
+
 	/** @var bool  indent exported XML (more or less, debug purpose only) */
 	public $indentXmlOutput = FALSE;
 

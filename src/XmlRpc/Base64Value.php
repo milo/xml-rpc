@@ -8,8 +8,10 @@ namespace Milo\XmlRpc;
  *
  * @author Miloslav Hůla (https://github.com/milo)
  */
-class Base64Value extends Sanity
+class Base64Value
 {
+	use Strict;
+
 	/** @var string */
 	private $value;
 

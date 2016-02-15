@@ -10,8 +10,10 @@ use DOMDocument;
  *
  * @author Miloslav Hůla (https://github.com/milo)
  */
-class MethodFaultResponse extends Sanity implements IMethod
+class MethodFaultResponse implements IMethod
 {
+	use Strict;
+
 	/** @var string  error message */
 	private $message;
 

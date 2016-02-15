@@ -12,8 +12,9 @@ require __DIR__ . '/../bootstrap.php';
 
 
 
-class Mock extends Milo\XmlRpc\Sanity
+class Mock
 {
+	use Milo\XmlRpc\Strict;
 }
 
 $mock = new Mock;

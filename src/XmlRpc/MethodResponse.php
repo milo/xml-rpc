@@ -10,8 +10,10 @@ use DOMDocument;
  *
  * @author Miloslav Hůla (https://github.com/milo)
  */
-class MethodResponse extends Sanity implements IMethod
+class MethodResponse implements IMethod
 {
+	use Strict;
+
 	/** @var mixed  return value */
 	private $returnValue;
 
