@@ -4,14 +4,51 @@ namespace Milo\XmlRpc;
 
 
 /**
+ * All exceptions marker.
+ */
+interface IException
+{
+}
+
+
+/**
+ * Wrong algorithm. API is used in a wrong way. Application code should be changed.
+ */
+class LogicException extends \LogicException implements IException
+{
+}
+
+
+/**
+ * Thrown when invalid schema passed to ValueValidator::validate().
+ */
+class InvalidSchemaException extends LogicException
+{
+}
+
+
+/**
+ * Unpredictable situation occurred.
+ */
+class RuntimeException extends \RuntimeException implements IException
+{
+}
+
+
+/**
  * XML source is somehow wrong.
  */
-abstract class BadXmlException extends \RuntimeException
+abstract class BadXmlException extends RuntimeException
 {
 	/** @var string */
 	private $xml;
 
 
+	/**
+	 * @param  string $message
+	 * @param  string $xml
+	 * @param  \Exception|NULL $previous
+	 */
 	public function __construct($message = '', $xml = '', \Exception $previous = NULL)
 	{
 		parent::__construct($message, 0, $previous);
@@ -47,9 +84,17 @@ class NotValidXmlException extends BadXmlException
 
 
 /**
+ * Thrown on ValueValidator::validate() fail.
+ */
+class InvalidValueException extends RuntimeException
+{
+}
+
+
+/**
  * Envelope for LibXMLError. For exceptions chaining purpose only.
  */
-class LibXmlErrorException extends \ErrorException
+class LibXmlErrorException extends \ErrorException implements IException
 {
 	/** @var int */
 	private $column;
@@ -70,20 +115,4 @@ class LibXmlErrorException extends \ErrorException
 		return $this->column;
 	}
 
-}
-
-
-/**
- * Thrown on ValueValidator::validate() fail.
- */
-class InvalidValueException extends \RuntimeException
-{
-}
-
-
-/**
- * Thrown when invalid schema passed to ValueValidator::validate().
- */
-class InvalidSchemaException extends \LogicException
-{
 }
