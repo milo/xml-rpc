@@ -2,7 +2,8 @@ XML-RPC
 =======
 This library helps to work with XML-RPC calls and responses. It requires only PHP DOM extension. It is based on word written specification on http://www.xmlrpc.com/.
 
-Simple XML-RPC client/server examples follow.
+Simple XML-RPC client and server examples follow.
+
 
 
 Client
@@ -12,21 +13,24 @@ require 'src/xml-rpc.php';
 
 use Milo\XmlRpc;
 
+
 # Converter between XML source and PHP classes
 $converter = new XmlRpc\Converter;
 
-# Method we are calling
-$call = new XmlRpc\MethodCall('math.power', array(2, 3));
+
+# Method we are calling and its arguments
+$call = new XmlRpc\MethodCall('math.power', [2, 3]);
 
 # Perform request over HTTP
-$context = stream_context_create(array(
+$context = stream_context_create([
 	'http' => array(
 		'method' => 'POST',
-		'header' => "Content-type: text/xml",
+		'header' => 'Content-type: text/xml',
 		'content' => $converter->toXml($call),
 	),
-));
+]);
 $xml = file_get_content('http://example.com', FALSE, $context);
+
 
 # XML response parsing
 $response = $converter->fromXml($xml);
@@ -39,17 +43,20 @@ var_dump($response->getReturnValue());
 ```
 
 
+
 Server
 ======
-An example of "echo" server. It just returns array with method name and its parameters which we called.
+An example of `echo` server. It only returns array with method name and its arguments which we called.
 
 ```php
 require 'src/xml-rpc.php';
 
 use Milo\XmlRpc;
 
+
 # Converter between XML source and PHP classes
 $converter = new XmlRpc\Converter;
+
 
 # Incoming XML
 $xml = file_get_contents('php://input');
@@ -61,12 +68,12 @@ try {
 	}
 
 	# Echo response
-	$response = new XmlRpc\MethodResponse(array(
+	$response = new XmlRpc\MethodResponse([
 		'youCalled' => $call->getName(),
 		'withParameters' => $call->getParameters(),
-	));
+	]);
 
-} catch (Exception $e) {
+} catch (XmlRpc\RuntimeException $e) {
 	# Fault response on error
 	$response = XmlRpc\MethodFaultResponse::fromException($e);
 }
@@ -76,9 +83,11 @@ echo $converter->toXml($response);
 ```
 
 
+
 Installation
 ============
 By [Composer](https://getcomposer.org/) `composer require milo/xml-rpc` or download manually and `require 'src/xml-rpc.php';`
+
 
 
 License
@@ -89,16 +98,16 @@ You may use all files under the terms of the New BSD Licence, or the GNU Public 
 
 Tests
 =====
-Tests are written for [Nette Tester](https://github.com/nette/tester), composer is required to run them:
+Tests are written for [Nette Tester](https://tester.nette.org), the Composer is required to run them:
 ```sh
-# Download the Tester tool
-composer update --dev
+# Download the Tester
+composer update
 
 # Run the tests
 vendor/bin/tester tests
 ```
 
 
-------
 
+------
 [![Build Status](https://travis-ci.org/milo/xml-rpc.png?branch=master)](https://travis-ci.org/milo/xml-rpc)
