@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Test: Convertor basics
+ * Test: Converter basics
  *
  * @author  Miloslav Hůla
  */
@@ -10,7 +10,7 @@ require __DIR__ . '/../bootstrap.php';
 
 
 
-class Mock extends Milo\XmlRpc\Convertor
+class Mock extends Milo\XmlRpc\Converter
 {
 	public function createDom()
 	{

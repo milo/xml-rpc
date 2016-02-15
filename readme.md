@@ -12,8 +12,8 @@ require 'src/xml-rpc.php';
 
 use Milo\XmlRpc;
 
-# Convertor between XML source and PHP classes
-$convertor = new XmlRpc\Convertor;
+# Converter between XML source and PHP classes
+$converter = new XmlRpc\Converter;
 
 # Method we are calling
 $call = new XmlRpc\MethodCall('math.power', array(2, 3));
@@ -23,13 +23,13 @@ $context = stream_context_create(array(
 	'http' => array(
 		'method' => 'POST',
 		'header' => "Content-type: text/xml",
-		'content' => $convertor->toXml($call),
+		'content' => $converter->toXml($call),
 	),
 ));
 $xml = file_get_content('http://example.com', FALSE, $context);
 
 # XML response parsing
-$response = $convertor->fromXml($xml);
+$response = $converter->fromXml($xml);
 if (!$response instanceof XmlRpc\MethodResponse) {
 	throw new Exception('Expected method response. Got ' . get_class($response));
 }
@@ -48,14 +48,14 @@ require 'src/xml-rpc.php';
 
 use Milo\XmlRpc;
 
-# Convertor between XML source and PHP classes
-$convertor = new XmlRpc\Convertor;
+# Converter between XML source and PHP classes
+$converter = new XmlRpc\Converter;
 
 # Incoming XML
 $xml = file_get_contents('php://input');
 
 try {
-	$call = $convertor->fromXml($xml);
+	$call = $converter->fromXml($xml);
 	if (!$call instanceof XmlRpc\MethodCall) {
 		throw new Exception('Expected method call. Got ' . get_class($call));
 	}
@@ -72,7 +72,7 @@ try {
 }
 
 # Print XML on standard output
-echo $convertor->toXml($response);
+echo $converter->toXml($response);
 ```
 
 

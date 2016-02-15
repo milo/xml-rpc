@@ -6,11 +6,11 @@ use DOMDocument;
 
 
 /**
- * Convertor between XML source and Milo\XmlRpc\IMethod classes.
+ * Converter between XML source and Milo\XmlRpc\IMethod classes.
  *
  * @author  Miloslav Hůla (https://github.com/milo)
  */
-class Convertor extends Sanity
+class Converter extends Sanity
 {
 	/** @var bool  indent exported XML (more or less, debug purpose only) */
 	public $indentXmlOutput = FALSE;
@@ -148,3 +148,8 @@ class Convertor extends Sanity
 	}
 
 }
+
+
+/** @deprecated */
+class Convertor extends Converter
+{}

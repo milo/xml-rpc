@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Test: Convertor::fromXml() fails
+ * Test: Converter::fromXml() fails
  *
  * @author  Miloslav Hůla
  */
@@ -10,14 +10,14 @@ require __DIR__ . '/../bootstrap.php';
 
 
 
-$convertor = new Milo\XmlRpc\Convertor;
+$converter = new Milo\XmlRpc\Converter;
 
-Assert::exception(function() use ($convertor) {
-	$convertor->fromXml('');
+Assert::exception(function() use ($converter) {
+	$converter->fromXml('');
 }, 'Milo\XmlRpc\MalformedXmlException', 'XML source loading failed.');
 
-$e = Assert::exception(function() use ($convertor) {
-	$convertor->fromXml('x');
+$e = Assert::exception(function() use ($converter) {
+	$converter->fromXml('x');
 }, 'Milo\XmlRpc\MalformedXmlException', 'XML source loading failed.');
 
 Assert::exception(function() use ($e) {
@@ -26,8 +26,8 @@ Assert::exception(function() use ($e) {
 
 
 
-$e = Assert::exception(function() use ($convertor) {
-	$convertor->fromXml('<test/>');
+$e = Assert::exception(function() use ($converter) {
+	$converter->fromXml('<test/>');
 }, 'Milo\XmlRpc\NotValidXmlException', 'XML source is not valid to XML-RPC schema.');
 
 Assert::exception(function() use ($e) {
