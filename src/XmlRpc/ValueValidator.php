@@ -147,25 +147,25 @@ class ValueValidator
 			return $match;
 		}
 
+		static $functions = [
+			'array', 'bool', 'callable', 'double', 'float', 'int', 'integer',
+			'null', 'NULL', 'numeric', 'object', 'resource', 'scalar', 'string'
+		];
+
 		if ($pattern->type === self::ANY) {
 			return TRUE;
 
 		} elseif ($pattern->type === self::T_ARRAY) {
 			return is_array($value);
 
-		} elseif ($pattern->isClass) {
-			return $value instanceof $pattern->type;
-
 		} elseif ($pattern->isUserType) {
 			throw new InvalidSchemaException('Usertypes are not implemented yet. Send me an issue.');
-		}
 
-		static $functions = ['array', 'bool', 'callable', 'double', 'float',
-			'int', 'integer', 'null', 'numeric', 'object', 'resource', 'scalar',
-			'string'];
-
-		if (in_array($pattern->type, $functions, TRUE)) {
+		} elseif (in_array($pattern->type, $functions, TRUE)) {
 			return call_user_func("is_$pattern->type", $value);
+
+		} elseif (class_exists($pattern->type)) {
+			return $value instanceof $pattern->type;
 		}
 
 		throw new InvalidSchemaException("Matching to pattern '$pattern->type' is not implemented.");
@@ -174,7 +174,7 @@ class ValueValidator
 
 	/**
 	 * @param  string
-	 * @return stdClass
+	 * @return \stdClass
 	 */
 	protected function parseMember($name)
 	{
@@ -188,7 +188,7 @@ class ValueValidator
 
 	/**
 	 * @param  string
-	 * @return stdClass[]
+	 * @return \stdClass[]
 	 *
 	 * @throws InvalidSchemaException
 	 */
@@ -204,11 +204,10 @@ class ValueValidator
 		if ($patterns === NULL) {
 			$patterns = [];
 			foreach (explode('|', $pattern) as $raw) {
-				preg_match('~^([#\\\\])?(.*?)(\[])?\z~', $raw, $m);
+				preg_match('~^(#)?(.*?)(\[])?\z~', $raw, $m);
 				$patterns[] = (object) [
 					'type' => $m[2],
 					'isArray' => isset($m[3]),
-					'isClass' => $m[1] === '\\',
 					'isUserType' => $m[1] === '#',
 				];
 			}
