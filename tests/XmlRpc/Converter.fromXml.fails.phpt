@@ -28,10 +28,16 @@ Assert::exception(function() use ($e) {
 
 
 
+/** @var Milo\XmlRpc\NotValidXmlException $e */
 $e = Assert::exception(function() use ($converter) {
 	$converter->fromXml('<test/>');
 }, 'Milo\XmlRpc\NotValidXmlException', 'XML source is not valid to XML-RPC schema.');
+Assert::same('<test/>', $e->getXml());
 
+
+/** @var Milo\XmlRpc\LibXmlErrorException $e */
+$e = $e->getPrevious();
 Assert::exception(function() use ($e) {
-	throw $e->getPrevious();
+	throw $e;
 }, 'Milo\XmlRpc\LibXmlErrorException', 'Did not expect element test there');
+Assert::same($e->getColumn(), 0);
