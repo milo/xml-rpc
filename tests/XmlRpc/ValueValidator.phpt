@@ -112,11 +112,11 @@ fail( NULL, [], 'Value of testVar must be an array.' );
 
 # Optional vs. required member
 pass( [], ['foo?' => '*'] );
-fail( [], ['foo' => '*'], "Missing member 'foo' of testVar value." );
+fail( [], ['foo' => '*'], "Member testVar[foo] is missing." );
 
 # Other members allowed
 pass( ['a'=>'', 'b'=>'', 'c'=>''], ['a'=>'string', '*'=>'*'] );
-fail( ['a'=>'', 'b'=>'', 'c'=>''], ['a'=>'string'], 'Value of testVar contains not allowed member(s) [b, c].' );
+fail( ['a'=>'', 'b'=>'', 'c'=>''], ['a'=>'string'], 'Not allowed member testVar[b, c].' );
 
 # Array required
 pass( ['a'=>[]], ['a'=>'string[]'] );

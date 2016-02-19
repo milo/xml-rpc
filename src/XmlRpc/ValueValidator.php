@@ -18,6 +18,12 @@ class ValueValidator
 	/** Array shortcut type. */
 	const T_ARRAY = '[]';
 
+	/** @var string */
+	public $pathPrefix = '[';
+
+	/** @var string */
+	public $pathSuffix = ']';
+
 
 	/**
 	 * @param  mixed  value to validate
@@ -75,23 +81,23 @@ class ValueValidator
 			$member = $this->parseMember($index);
 			if (!array_key_exists($member->name, $value)) {
 				if (!$member->isOptional) {
-					throw new InvalidValueException("Missing member '$member->name' of $path value.");
+					throw new InvalidValueException("Member {$path}{$this->pathPrefix}{$member->name}{$this->pathSuffix} is missing.");
 				}
 				continue;
 			}
 
-			$this->validate($value[$member->name], $pattern, "{$path}[$member->name]");
+			$this->validate($value[$member->name], $pattern, "{$path}{$this->pathPrefix}{$member->name}{$this->pathSuffix}");
 			$keys[] = $member->name;
 		}
 
 		if (count($value) !== count($keys)) {
-			$diff = array_diff_key(array_keys($value), $keys);
 			if (!$allowOthers) {
-				throw new InvalidValueException("Value of $path contains not allowed member(s) [" . implode(', ', $diff) . "].");
+				$diff = array_diff(array_keys($value), $keys);
+				throw new InvalidValueException("Not allowed member {$path}{$this->pathPrefix}" . implode(', ', $diff) . "{$this->pathSuffix}.");
 			}
 
 			foreach ($keys as $key) {
-				$this->validate($value[$key], $schema[self::ANY], "{$path}[$key]");
+				$this->validate($value[$key], $schema[self::ANY], "{$path}{$this->pathPrefix}{$key}{$this->pathSuffix}");
 			}
 		}
 	}
