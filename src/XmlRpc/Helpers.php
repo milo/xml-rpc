@@ -15,11 +15,11 @@ class Helpers
 
 
 	/**
-	 * @throws \LogicException
+	 * @throws LogicException
 	 */
 	final public function __construct()
 	{
-		throw new \LogicException('Class ' . __CLASS__ . ' is static and cannot be instantized.');
+		throw new LogicException('Class ' . __CLASS__ . ' is static and cannot be instantized.');
 	}
 
 
