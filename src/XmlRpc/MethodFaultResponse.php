@@ -10,7 +10,7 @@ use DOMDocument;
  *
  * @author Miloslav Hůla (https://github.com/milo)
  */
-class MethodFaultResponse implements IMethod
+class MethodFaultResponse implements IMethod, IMethodResponse
 {
 	use Strict;
 
