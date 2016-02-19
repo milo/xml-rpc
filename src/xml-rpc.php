@@ -17,3 +17,4 @@ require __DIR__ . '/XmlRpc/MethodCall.php';
 require __DIR__ . '/XmlRpc/MethodResponse.php';
 require __DIR__ . '/XmlRpc/MethodFaultResponse.php';
 require __DIR__ . '/XmlRpc/ValueValidator.php';
+require __DIR__ . '/XmlRpc/Server.php';

@@ -30,7 +30,7 @@ class InvalidSchemaException extends LogicException
 /**
  * Unpredictable situation occurred.
  */
-class RuntimeException extends \RuntimeException implements IException
+abstract class RuntimeException extends \RuntimeException implements IException
 {
 }
 
@@ -87,6 +87,15 @@ class NotValidXmlException extends BadXmlException
  * Thrown on ValueValidator::validate() fail.
  */
 class InvalidValueException extends RuntimeException
+{
+}
+
+
+/**
+ * MethodCall processing somehow failed. It will results into fault method response.
+ * The exception message and code will be sent to the client.
+ */
+class FaultResponseException extends RuntimeException
 {
 }
 

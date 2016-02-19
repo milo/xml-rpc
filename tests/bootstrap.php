@@ -10,3 +10,8 @@ unset($autoloadFile);
 
 Tester\Environment::setup();
 date_default_timezone_set('UTC');
+
+
+function test(\Closure $cb) {
+	$cb();
+}
