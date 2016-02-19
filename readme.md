@@ -44,8 +44,8 @@ var_dump($response->getReturnValue());
 
 
 
-Server
-======
+Server - manually
+=================
 An example of `echo` server. It only returns array with method name and its arguments which we called.
 
 ```php
@@ -80,6 +80,59 @@ try {
 
 # Print XML on standard output
 echo $converter->toXml($response);
+```
+
+
+
+Server - automatically
+======================
+An example of methods handling more automatically than above.
+
+```php
+require 'src/xml-rpc.php';
+
+use Milo\XmlRpc;
+
+
+# Incoming XML
+$xml = file_get_contents('php://input');
+
+
+# Method call handler server
+$server = new XmlRpc\Server;
+$server->registerHandler(
+	'my.method', ['string', 'int', '2?' => 'bool|NULL'],
+	function ($string, $int, $bool = NULL) {
+		# Throw XmlRpc\FaultResponseException and client will get your error message and code.
+		# Throw anything else and client will get fault response with code 500.
+		return [...];
+	}
+);
+
+
+# Handle XML directly. All exceptions are caught and converted to fault response. 
+echo $server->handleXml($xml, $faultCode);  # $faultCode is filled by fault response code
+
+
+
+# Or handle MethodCall object.
+$converter = new XmlRpc\Converter;
+
+# It may throw exception on invalid XML.
+$call = $converter->fromXml($xml);
+
+# All exceptions are caught and converted to fault response.
+$response = $server->handle($call);
+
+# Print XML on standard output
+echo $converter->toXml($response);
+
+
+
+# To log what's happening inside.
+$server->addLogger(function (MethodCall $call = NULL, IMethodResponse $response = NULL, \Exception $e = NULL) {
+	...
+});
 ```
 
 
