@@ -2,7 +2,6 @@
 
 /**
  * Test: Helpers
- * @author  Miloslav Hůla
  */
 
 use Tester\Assert;

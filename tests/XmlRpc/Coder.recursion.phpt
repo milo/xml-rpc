@@ -2,8 +2,6 @@
 
 /**
  * Test: recursion
- *
- * @author  Miloslav Hůla
  */
 
 use Tester\Assert;

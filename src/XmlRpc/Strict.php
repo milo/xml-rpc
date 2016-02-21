@@ -5,7 +5,6 @@ namespace Milo\XmlRpc;
 
 /**
  * Undefined member access check. Stolen from Nette Framework (https://nette.org).
- * @internal
  */
 trait Strict
 {

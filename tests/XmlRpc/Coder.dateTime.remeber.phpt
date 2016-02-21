@@ -1,9 +1,7 @@
 <?php
 
 /**
- * Test: Remeber last received <dateTime.iso8601> format
- *
- * @author  Miloslav Hůla
+ * Test: Remember last received <dateTime.iso8601> format
  */
 
 use Tester\Assert;

@@ -7,8 +7,6 @@ use DOMDocument;
 
 /**
  * Converter between XML source and Milo\XmlRpc\IMethod classes.
- *
- * @author  Miloslav Hůla (https://github.com/milo)
  */
 class Converter
 {
@@ -39,10 +37,9 @@ class Converter
 	/**
 	 * Creates IMethod object from XML.
 	 *
-	 * @param  string  XML source
-	 * @param  int  LibXML options
+	 * @param  string $xml  XML source
+	 * @param  int $libXmlOptions  LibXML options
 	 * @return MethodCall|MethodResponse|MethodFaultResponse
-	 *
 	 * @throws MalformedXmlException
 	 * @throws NotValidXmlException
 	 */
@@ -51,7 +48,7 @@ class Converter
 		$doc = $this->createDom();
 
 		Helpers::handleXmlErrors();
-		if (@!$doc->loadXML($xml, $libXmlOptions | LIBXML_NOBLANKS)) {  // @ - E_WARNING on empty XML string
+		if (@!$doc->loadXML($xml, $libXmlOptions | LIBXML_NOBLANKS)) {  # @ - E_WARNING on empty XML string
 			throw new MalformedXmlException('XML source loading failed.', $xml, Helpers::fetchXmlErrors());
 		}
 
@@ -76,8 +73,8 @@ class Converter
 	/**
 	 * Creates XML from IMethod object.
 	 *
+	 * @param  IMethod $method
 	 * @return string
-	 *
 	 * @throws NotValidXmlException
 	 */
 	public function toXml(IMethod $method)
@@ -110,6 +107,7 @@ class Converter
 
 
 	/**
+	 * @param  DOMDocument $doc
 	 * @return MethodCall
 	 */
 	protected function createMethodCall(DOMDocument $doc)
@@ -125,16 +123,19 @@ class Converter
 
 
 	/**
+	 * @param  DOMDocument $doc
 	 * @return MethodResponse
 	 */
 	protected function createMethodResponse(DOMDocument $doc)
 	{
-		$returnValue = $this->coder->decodeValueNode($doc->getElementsByTagName('value')->item(0));
-		return new MethodResponse($returnValue);
+		return new MethodResponse(
+			$this->coder->decodeValueNode($doc->getElementsByTagName('value')->item(0))
+		);
 	}
 
 
 	/**
+	 * @param  DOMDocument $doc
 	 * @return MethodFaultResponse
 	 */
 	protected function createMethodFaultResponse(DOMDocument $doc)

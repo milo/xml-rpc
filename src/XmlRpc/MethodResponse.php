@@ -7,8 +7,6 @@ use DOMDocument;
 
 /**
  * Successful XML-RPC <methodResponse> representation.
- *
- * @author Miloslav Hůla (https://github.com/milo)
  */
 class MethodResponse implements IMethod, IMethodResponse
 {
@@ -40,6 +38,10 @@ class MethodResponse implements IMethod, IMethodResponse
 
 	/**
 	 * Fills DOM by return value.
+	 *
+	 * @param  DOMDocument $doc
+	 * @param  Coder $coder
+	 * @return void
 	 */
 	public function toXml(DOMDocument $doc, Coder $coder)
 	{

@@ -2,8 +2,6 @@
 
 /**
  * Test: Decoding of non-tagged string
- *
- * @author  Miloslav Hůla
  */
 
 use Tester\Assert;

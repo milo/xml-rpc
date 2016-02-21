@@ -7,8 +7,6 @@ use DOMDocument;
 
 /**
  * Fault XML-RPC <methodResponse> representation.
- *
- * @author Miloslav Hůla (https://github.com/milo)
  */
 class MethodFaultResponse implements IMethod, IMethodResponse
 {
@@ -22,8 +20,8 @@ class MethodFaultResponse implements IMethod, IMethodResponse
 
 
 	/**
-	 * @param  string  faultString
-	 * @param  string  faultCode
+	 * @param  string $message  faultString
+	 * @param  int $code  faultCode
 	 */
 	public function __construct($message, $code)
 	{
@@ -57,6 +55,7 @@ class MethodFaultResponse implements IMethod, IMethodResponse
 	/**
 	 * Creates fault response from Exception.
 	 *
+	 * @param  \Exception $e
 	 * @return self
 	 */
 	public static function fromException(\Exception $e)
@@ -67,6 +66,10 @@ class MethodFaultResponse implements IMethod, IMethodResponse
 
 	/**
 	 * Fills DOM by error message and code.
+	 *
+	 * @param  DOMDocument $doc
+	 * @param  Coder $coder
+	 * @return void
 	 */
 	public function toXml(DOMDocument $doc, Coder $coder)
 	{

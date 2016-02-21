@@ -4,9 +4,7 @@ namespace Milo\XmlRpc;
 
 
 /**
- * Value will be encoded as <value><base64>.
- *
- * @author Miloslav Hůla (https://github.com/milo)
+ * Value encoded as <base64>.
  */
 class Base64Value
 {
@@ -17,7 +15,7 @@ class Base64Value
 
 
 	/**
-	 * @var string
+	 * @param  string $value
 	 */
 	public function __construct($value)
 	{

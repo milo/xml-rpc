@@ -2,8 +2,6 @@
 
 /**
  * Test: Coder's edge cases
- *
- * @author  Miloslav Hůla
  */
 
 use Tester\Assert;

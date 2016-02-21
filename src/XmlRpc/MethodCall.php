@@ -7,8 +7,6 @@ use DOMDocument;
 
 /**
  * XML-RPC <methodCall> representation.
- *
- * @author Miloslav Hůla (https://github.com/milo)
  */
 class MethodCall implements IMethod
 {
@@ -22,8 +20,8 @@ class MethodCall implements IMethod
 
 
 	/**
-	 * @param  string  method name
-	 * @param  array  method parameters
+	 * @param  string $name
+	 * @param  array $parameters
 	 */
 	public function __construct($name, array $parameters = [])
 	{
@@ -67,6 +65,10 @@ class MethodCall implements IMethod
 
 	/**
 	 * Fills DOM by method name and parameters.
+	 *
+	 * @param  DOMDocument $doc
+	 * @param  Coder $coder
+	 * @return void
 	 */
 	public function toXml(DOMDocument $doc, Coder $coder)
 	{

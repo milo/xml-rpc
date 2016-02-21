@@ -2,8 +2,6 @@
 
 /**
  * Test: MethodCall
- *
- * @author  Miloslav Hůla
  */
 
 use Tester\Assert;

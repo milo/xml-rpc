@@ -2,8 +2,6 @@
 
 /**
  * Test: MethodResponse
- *
- * @author  Miloslav Hůla
  */
 
 use Tester\Assert;

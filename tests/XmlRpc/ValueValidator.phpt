@@ -2,8 +2,6 @@
 
 /**
  * Test: ValueValidator
- *
- * @author  Miloslav Hůla
  */
 
 use Tester\Assert;

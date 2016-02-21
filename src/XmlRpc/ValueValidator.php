@@ -26,11 +26,10 @@ class ValueValidator
 
 
 	/**
-	 * @param  mixed  value to validate
-	 * @param  scalar|array  validation schema
-	 * @param  string  path to structure
+	 * @param  mixed $value  value to validate
+	 * @param  mixed $schema  validation schema
+	 * @param  string $path  dumped path to structure when validation fails
 	 * @return self
-	 *
 	 * @throws InvalidValueException
 	 * @throws InvalidSchemaException
 	 */
@@ -52,11 +51,10 @@ class ValueValidator
 
 
 	/**
-	 * @param  array
-	 * @param  array
-	 * @param  string  path to structure
+	 * @param  array $value
+	 * @param  array $schema
+	 * @param  string $path
 	 * @return void
-	 *
 	 * @throws InvalidValueException
 	 * @throws InvalidSchemaException
 	 */
@@ -104,11 +102,10 @@ class ValueValidator
 
 
 	/**
-	 * @param  mixed
-	 * @param  string  type pattern
-	 * @param  string  path to structure
+	 * @param  mixed $value
+	 * @param  string $patternStr  validation pattern
+	 * @param  string $path
 	 * @return void
-	 *
 	 * @throws InvalidValueException
 	 * @throws InvalidSchemaException
 	 */
@@ -130,9 +127,9 @@ class ValueValidator
 
 
 	/**
-	 * @param  mixed
+	 * @param  mixed $value
+	 * @param  \stdClass $pattern
 	 * @return bool
-	 *
 	 * @throws InvalidSchemaException
 	 */
 	protected function match($value, \stdClass $pattern)
@@ -179,7 +176,7 @@ class ValueValidator
 
 
 	/**
-	 * @param  string
+	 * @param  string $name
 	 * @return \stdClass
 	 */
 	protected function parseMember($name)
@@ -193,9 +190,8 @@ class ValueValidator
 
 
 	/**
-	 * @param  string
+	 * @param  string $pattern
 	 * @return \stdClass[]
-	 *
 	 * @throws InvalidSchemaException
 	 */
 	protected function parsePatterns($pattern)
@@ -224,6 +220,7 @@ class ValueValidator
 
 
 	/**
+	 * @param  array $value
 	 * @return bool
 	 */
 	private static function isList(array $value)

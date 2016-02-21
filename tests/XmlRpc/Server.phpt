@@ -2,7 +2,6 @@
 
 /**
  * Test: Server
- * @author  Miloslav Hůla
  */
 
 use Tester\Assert;

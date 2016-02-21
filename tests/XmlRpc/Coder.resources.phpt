@@ -2,8 +2,6 @@
 
 /**
  * Test: PHP resource type conversion
- *
- * @author  Miloslav Hůla
  */
 
 use Tester\Assert;

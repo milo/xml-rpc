@@ -2,8 +2,6 @@
 
 /**
  * Test: <base64> conversion
- *
- * @author  Miloslav Hůla
  */
 
 use Tester\Assert;

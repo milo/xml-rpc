@@ -2,18 +2,17 @@
 
 namespace Milo\XmlRpc;
 
-use DOMDocument,
-	DOMElement,
-	DOMText;
+use DOMDocument;
+use DOMElement;
+use DOMText;
 
 
 /**
  * Coder between XML-RPC types and PHP types.
- *     decode XML to PHP
- *     encode PHP to XML
+ *   - decodes XML to PHP
+ *   - encodes PHP to XML
  *
- * @author  Miloslav Hůla (https://github.com/milo)
- * @see     http://xmlrpc.scripting.com/spec
+ * @see    http://xmlrpc.scripting.com/spec
  */
 class Coder
 {
@@ -38,7 +37,7 @@ class Coder
 	/**
 	 * Is string binary?
 	 *
-	 * @param  string
+	 * @param  string $str
 	 * @return bool
 	 */
 	public static function isBinary($str)
@@ -50,7 +49,7 @@ class Coder
 	/**
 	 * Removes all characters which cannot be in XML.
 	 *
-	 * @param  string
+	 * @param  string $str
 	 * @return string
 	 */
 	public static function sanitizeXml($str)
@@ -62,9 +61,8 @@ class Coder
 	/**
 	 * Converts <value> node to PHP variable.
 	 *
-	 * @param  DOMElement  <value> node
+	 * @param  DOMElement $node  <value> node
 	 * @return mixed
-	 *
 	 * @throws CoderException
 	 */
 	public function decodeValueNode(DOMElement $node)
@@ -87,7 +85,7 @@ class Coder
 			case 'i4':
 			case 'i8':
 			case 'int':
-				return (int) $textContent;  // presume PHP has 32-bit integer at least
+				return (int) $textContent;  # presume PHP has 32-bit integer at least
 
 			case 'boolean':
 				return (bool) $textContent;
@@ -118,25 +116,21 @@ class Coder
 	/**
 	 * Converts PHP variable to <value> node.
 	 *
-	 * @param  DOMDocument
-	 * @param  mixed
-	 * @param  int
+	 * @param  DOMDocument $doc
+	 * @param  mixed $var
+	 * @param  int $level
 	 * @return DOMElement  <value> node
-	 *
 	 * @throws CoderException
 	 */
 	public function encodeValueNode(DOMDocument $doc, $var, $level = 1)
 	{
 		if ($level > (int) $this->maxEncodeDepth) {
 			throw new CoderException('Nesting level too deep or recursive dependency. Try to increase ' . __CLASS__ . '::$maxEncodeDepth');
-		}
 
-		if ($var instanceof IValueConvertible) {
+		} elseif ($var instanceof IValueConvertible) {
 			return $this->encodeValueNode($doc, $var->getXmlRpcValue(), $level + 1);
-		}
 
-
-		if ($var === NULL) {
+		} elseif ($var === NULL) {
 			$node = $doc->createElement('nil');
 
 		} elseif (is_bool($var)) {
@@ -144,7 +138,7 @@ class Coder
 
 		} elseif (is_string($var)) {
 			if ($this->encodeBinaryAsBase64 && static::isBinary($var)) {
-					$node = $doc->createElement('base64', base64_encode($var));
+				$node = $doc->createElement('base64', base64_encode($var));
 
 			} else {
 				$node = $doc->createElement('string');
@@ -153,7 +147,7 @@ class Coder
 				}
 			}
 
-		} elseif (is_int($var) && $var >= -2147483648 && $var <= 2147483647) {  // XML-RPC specifies 32-bit integer only
+		} elseif (is_int($var) && $var >= -2147483648 && $var <= 2147483647) {  # XML-RPC specifies 32-bit integer only
 			$node = $doc->createElement('int', number_format($var, 0, '.', ''));
 
 		} elseif (is_float($var) || is_int($var)) {
@@ -177,8 +171,9 @@ class Coder
 		} elseif (is_object($var)) {
 			$node = $this->encodeStructNode($doc, $var, $level);
 
+
 		} elseif (is_resource($var)) {
-			$node = $this->encodeResource($doc, $var, $level);
+			$node = $this->encodeResource($doc, $var);
 
 		} else {
 			throw new CoderException("Type '" . gettype($var) . "' is not convertible to <value>.");
@@ -192,7 +187,7 @@ class Coder
 
 
 	/**
-	 * @param  string
+	 * @param  string $text
 	 * @return float|string
 	 */
 	protected function decodeDouble($text)
@@ -209,7 +204,7 @@ class Coder
 
 
 	/**
-	 * @param  string
+	 * @param  string $var
 	 * @return string
 	 */
 	protected function encodeDouble($var)
@@ -221,9 +216,8 @@ class Coder
 
 
 	/**
-	 * @param  string
+	 * @param  string $text
 	 * @return \DateTime
-	 *
 	 * @throws NotValidXmlException  when datetime is in inappropriate format
 	 */
 	protected function decodeDateTime($text)
@@ -249,7 +243,7 @@ class Coder
 
 
 	/**
-	 * @param  string
+	 * @param  \DateTime $var
 	 * @return string
 	 */
 	protected function encodeDateTime(\DateTime $var)
@@ -263,7 +257,8 @@ class Coder
 
 
 	/**
-	 * @return stdClass|array
+	 * @param  DOMElement $node
+	 * @return \stdClass|array
 	 */
 	protected function decodeStructNode(DOMElement $node)
 	{
@@ -282,6 +277,9 @@ class Coder
 
 
 	/**
+	 * @param  DOMDocument $doc
+	 * @param  mixed $var
+	 * @param  int $level
 	 * @return DOMElement  <struct> node
 	 */
 	protected function encodeStructNode(DOMDocument $doc, $var, $level)
@@ -301,6 +299,7 @@ class Coder
 
 
 	/**
+	 * @param  DOMElement $node
 	 * @return array
 	 */
 	protected function decodeArrayNode(DOMElement $node)
@@ -315,6 +314,9 @@ class Coder
 
 
 	/**
+	 * @param  DOMDocument $doc
+	 * @param  array $var
+	 * @param  int $level
 	 * @return DOMElement  <array> node
 	 */
 	protected function encodeArrayNode(DOMDocument $doc, array $var, $level)
@@ -333,10 +335,9 @@ class Coder
 	/**
 	 * Converts resource content to DOMElement.
 	 *
-	 * @param  DOMDocument
-	 * @param  resource
+	 * @param  DOMDocument $doc
+	 * @param  resource $resource
 	 * @return DOMElement
-	 *
 	 * @throws CoderException  when conversion is not implemented
 	 */
 	protected function encodeResource(DOMDocument $doc, $resource)

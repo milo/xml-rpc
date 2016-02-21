@@ -2,8 +2,6 @@
 
 /**
  * Test: Converter basics
- *
- * @author  Miloslav Hůla
  */
 
 use Tester\Assert;

@@ -55,7 +55,7 @@ class Server
 	/**
 	 * @param  string $methodName
 	 * @param  array $validationRules
-	 * @param  callable $handler  function (array $methodParameters)
+	 * @param  callable $handler  function (array $receivedParameters)
 	 * @return $this
 	 */
 	public function registerHandler($methodName, array $validationRules, callable $handler)
@@ -72,7 +72,7 @@ class Server
 	/**
 	 * @param  string $methodName
 	 * @param  array $validationRules
-	 * @param  callable $handler  function (array $methodParameters)
+	 * @param  callable $handler  function (array $receivedParameters)
 	 * @return $this
 	 */
 	public function replaceHandler($methodName, array $validationRules, callable $handler)

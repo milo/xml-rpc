@@ -2,8 +2,6 @@
 
 /**
  * Test: <struct> conversion
- *
- * @author  Miloslav Hůla
  */
 
 use Tester\Assert;

@@ -2,8 +2,6 @@
 
 /**
  * Test: Sanity checks
- *
- * @author  Miloslav Hůla
  */
 
 use Tester\Assert;

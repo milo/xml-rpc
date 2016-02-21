@@ -6,13 +6,14 @@ use DOMDocument;
 
 
 /**
- * Object represents <methodCall> or <methodResponse>.
- *
- * @author Miloslav Hůla (https://github.com/milo)
+ * Implementor represents <methodCall> or <methodResponse>.
  */
 interface IMethod
 {
+
 	/**
+	 * @param  DOMDocument $doc
+	 * @param  Coder $coder
 	 * @return void
 	 */
 	function toXml(DOMDocument $doc, Coder $coder);

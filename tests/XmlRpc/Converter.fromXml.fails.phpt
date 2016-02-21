@@ -2,8 +2,6 @@
 
 /**
  * Test: Converter::fromXml() fails
- *
- * @author  Miloslav Hůla
  */
 
 use Tester\Assert;

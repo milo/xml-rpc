@@ -1,11 +1,10 @@
 <?php
 
-if (!is_file($autoloadFile = __DIR__ . '/../vendor/autoload.php')) {
-	echo "Tester not found. Install Nette Tester using `composer update --dev`.\n";
+if (!is_file(__DIR__ . '/../vendor/autoload.php')) {
+	echo "Tester not found. Install Nette Tester using `composer update`.\n";
 	exit(1);
 }
-include $autoloadFile;
-unset($autoloadFile);
+include __DIR__ . '/../vendor/autoload.php';
 
 
 Tester\Environment::setup();

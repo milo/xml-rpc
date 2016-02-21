@@ -5,8 +5,6 @@ namespace Milo\XmlRpc;
 
 /**
  * Helpers.
- *
- * @author Miloslav Hůla (https://github.com/milo)
  */
 class Helpers
 {
@@ -35,7 +33,7 @@ class Helpers
 	/**
 	 * Fetch all LibXML errors and converts them into LibXmlErrorException chain.
 	 *
-	 * @param  bool  restore LibXML errors handling
+	 * @param  bool $restoreHandling  restore LibXML errors handling
 	 * @return LibXmlErrorException|NULL
 	 */
 	public static function fetchXmlErrors($restoreHandling = TRUE)
@@ -56,6 +54,7 @@ class Helpers
 
 	/**
 	 * Restore LibXML errors handling.
+	 * @return void
 	 */
 	public static function restoreErrorHandling()
 	{

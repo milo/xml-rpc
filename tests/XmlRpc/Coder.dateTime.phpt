@@ -2,8 +2,6 @@
 
 /**
  * Test: <dateTime.iso8601> conversion
- *
- * @author  Miloslav Hůla
  */
 
 use Tester\Assert;

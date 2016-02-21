@@ -2,8 +2,6 @@
 
 /**
  * Test: Conversion of base XML-RPC types
- *
- * @author  Miloslav Hůla
  */
 
 use Tester\Assert;

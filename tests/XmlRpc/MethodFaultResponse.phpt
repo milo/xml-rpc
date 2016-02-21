@@ -2,8 +2,6 @@
 
 /**
  * Test: MethodFaultResponse
- *
- * @author  Miloslav Hůla
  */
 
 require __DIR__ . '/../bootstrap.php';
