@@ -101,6 +101,14 @@ class FaultResponseException extends RuntimeException
 
 
 /**
+ * Encoding to XML or decoding from XML failed.
+ */
+class CoderException extends RuntimeException
+{
+}
+
+
+/**
  * Envelope for LibXMLError. For exceptions chaining purpose only.
  */
 class LibXmlErrorException extends \ErrorException implements IException

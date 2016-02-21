@@ -22,4 +22,4 @@ Assert::exception(function() use ($coder, $doc) {
 	$var[0] = & $var;
 
 	$coder->encodeValueNode($doc, $var);
-}, 'InvalidArgumentException', 'Nesting level too deep or recursive dependency. Try to increase Milo\XmlRpc\Coder::$maxEncodeDepth');
+}, 'Milo\XmlRpc\CoderException', 'Nesting level too deep or recursive dependency. Try to increase Milo\XmlRpc\Coder::$maxEncodeDepth');

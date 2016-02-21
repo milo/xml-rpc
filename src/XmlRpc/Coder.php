@@ -65,7 +65,7 @@ class Coder
 	 * @param  DOMElement  <value> node
 	 * @return mixed
 	 *
-	 * @throws \InvalidArgumentException
+	 * @throws CoderException
 	 */
 	public function decodeValueNode(DOMElement $node)
 	{
@@ -111,7 +111,7 @@ class Coder
 				return $this->decodeArrayNode($node->firstChild);
 		}
 
-		throw new \InvalidArgumentException("Converting <{$node->firstChild->nodeName}> node is not supported.");
+		throw new CoderException("Converting <{$node->firstChild->nodeName}> node is not supported.");
 	}
 
 
@@ -123,12 +123,12 @@ class Coder
 	 * @param  int
 	 * @return DOMElement  <value> node
 	 *
-	 * @throws \InvalidArgumentException
+	 * @throws CoderException
 	 */
 	public function encodeValueNode(DOMDocument $doc, $var, $level = 1)
 	{
 		if ($level > (int) $this->maxEncodeDepth) {
-			throw new \InvalidArgumentException('Nesting level too deep or recursive dependency. Try to increase ' . __CLASS__ . '::$maxEncodeDepth');
+			throw new CoderException('Nesting level too deep or recursive dependency. Try to increase ' . __CLASS__ . '::$maxEncodeDepth');
 		}
 
 		if ($var instanceof IValueConvertible) {
@@ -181,7 +181,7 @@ class Coder
 			$node = $this->encodeResource($doc, $var, $level);
 
 		} else {
-			throw new \InvalidArgumentException("Type '" . gettype($var) . "' is not convertible to <value>.");
+			throw new CoderException("Type '" . gettype($var) . "' is not convertible to <value>.");
 		}
 
 		$valueNode = $doc->createElement('value');
@@ -337,13 +337,13 @@ class Coder
 	 * @param  resource
 	 * @return DOMElement
 	 *
-	 * @throws \InvalidArgumentException  when conversion is not implemented
+	 * @throws CoderException  when conversion is not implemented
 	 */
 	protected function encodeResource(DOMDocument $doc, $resource)
 	{
 		$type = get_resource_type($resource);
 		if ($type !== 'stream') {
-			throw new \InvalidArgumentException("Conversion of '$type' resource is not implemented.");
+			throw new CoderException("Conversion of '$type' resource is not implemented.");
 		}
 
 		$data = base64_encode(stream_get_contents($resource));
