@@ -21,9 +21,9 @@ class Converter
 	private $coder;
 
 
-	public function __construct()
+	public function __construct(Coder $coder = NULL)
 	{
-		$this->coder = new Coder;
+		$this->coder = $coder ?: new Coder;
 	}
 
 
@@ -33,12 +33,6 @@ class Converter
 	public function getCoder()
 	{
 		return $this->coder;
-	}
-
-
-	public function setCoder(Coder $coder)
-	{
-		$this->coder = $coder;
 	}
 
 
