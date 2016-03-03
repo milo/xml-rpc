@@ -18,6 +18,6 @@
 		"nette/tester": "~1.7.0"
 	},
 	"autoload": {
-		"classmap": ["src/XmlRpc/"]
+		"classmap": ["src/"]
 	}
 }
