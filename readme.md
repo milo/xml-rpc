@@ -14,8 +14,8 @@ require 'src/xml-rpc.php';
 use Milo\XmlRpc;
 
 
-# Converter between XML source and PHP classes
-$converter = new XmlRpc\Converter;
+# Convertor between XML source and PHP classes
+$converter = new XmlRpc\Convertor;
 
 
 # Method we are calling and its arguments
@@ -29,7 +29,7 @@ $context = stream_context_create([
 		'content' => $converter->toXml($call),
 	),
 ]);
-$xml = file_get_content('http://example.com', FALSE, $context);
+$xml = file_get_contents('http://example.com', FALSE, $context);
 
 
 # XML response parsing
