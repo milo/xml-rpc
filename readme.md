@@ -29,7 +29,7 @@ $context = stream_context_create([
 		'content' => $converter->toXml($call),
 	),
 ]);
-$xml = file_get_content('http://example.com', FALSE, $context);
+$xml = file_get_contents('http://example.com', FALSE, $context);
 
 
 # XML response parsing
