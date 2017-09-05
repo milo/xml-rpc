@@ -306,7 +306,9 @@ class Coder
 	{
 		$return = [];
 		foreach ($node->childNodes->item(0)->childNodes as $value) {
-			$return[] = $this->decodeValueNode($value);
+			if ($value->nodeType == XML_ELEMENT_NODE) {
+				$return[] = $this->decodeValueNode($value);
+			}
 		}
 
 		return $return;
