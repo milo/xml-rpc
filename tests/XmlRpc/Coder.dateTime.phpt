@@ -23,4 +23,5 @@ Assert::equal([
 	DateTime::createFromFormat('Y-m-d H:i:s P', '2000-01-20 12:30:00 +02:30'),
 	DateTime::createFromFormat('Y-m-d H:i:s', '2000-01-20 12:30:00'),
 	DateTime::createFromFormat('Y-m-d H:i:s P', '2000-01-20 12:30:00 Z'),
+	DateTime::createFromFormat('Y-m-d H:i:s P', '2000-01-20 12:30:00+0200'),
 ], $var);
