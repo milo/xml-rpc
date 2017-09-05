@@ -34,6 +34,7 @@ Assert::equal([
 	NULL,
 	['a' => NULL, 'b' => 'c'],
 	['1', 1],
+	[],
 ], $var);
 
 

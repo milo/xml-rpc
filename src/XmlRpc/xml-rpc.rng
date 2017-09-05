@@ -7,6 +7,9 @@
 	of applications use format yyyymmddThh:mm:ss. Higher application level
 	should deal with it.
 
+	According to specification, <array> should always contain <data> element.
+	This schema allows missing <data> element, array is handled as empty.
+
 	@author  Miloslav Hůla (https://github.com/milo)
 -->
 <grammar
@@ -108,11 +111,13 @@
 				</element>
 
 				<element name="array">
-					<element name="data">
-						<zeroOrMore>
-							<ref name="value" />
-						</zeroOrMore>
-					</element>
+					<optional>
+						<element name="data">
+							<zeroOrMore>
+								<ref name="value" />
+							</zeroOrMore>
+						</element>
+					</optional>
 				</element>
 			</choice>
 		</element>
