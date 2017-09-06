@@ -9,11 +9,14 @@ use Tester\Assert;
 require __DIR__ . '/../bootstrap.php';
 
 
+$xml = file_get_contents(__DIR__ . '/files/Coder.basic.xml');
+assertValueElement($xml);
+
 
 $coder = new Milo\XmlRpc\Coder;
 $doc = new DOMDocument;
 $doc->preserveWhiteSpace = FALSE;
-$doc->load(__DIR__ . '/files/Coder.basic.xml');
+$doc->loadXML($xml);
 
 
 
@@ -40,6 +43,6 @@ $doc = new DOMDocument;
 $doc->formatOutput = TRUE;
 $node = $coder->encodeValueNode($doc, $var);
 Assert::same(
-	file_get_contents(__DIR__ . '/files/Coder.basic.xml'),
+	$xml,
 	$doc->saveXML($node)
 );

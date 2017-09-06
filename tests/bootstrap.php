@@ -11,6 +11,27 @@ Tester\Environment::setup();
 date_default_timezone_set('UTC');
 
 
-function test(\Closure $cb) {
+function test(\Closure $cb)
+{
 	$cb();
+}
+
+
+function assertValueElement($xml)
+{
+	$doc = new DOMDocument;
+	$doc->loadXml("
+		<methodCall>
+			<methodName>assert.validXmlValue</methodName>
+			<params>
+				<param>
+					$xml
+				</param>
+			</params>
+		</methodCall>
+	");
+
+	if (!$doc->relaxNGValidate(__DIR__ . '/../src/XmlRpc/xml-rpc.rng')) {
+		throw new LogicException('XML source is not valid to XML-RPC schema.');
+	}
 }

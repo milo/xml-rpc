@@ -9,11 +9,14 @@ use Tester\Assert;
 require __DIR__ . '/../bootstrap.php';
 
 
+$xml = file_get_contents(__DIR__ . '/files/Coder.dateTime.xml');
+assertValueElement($xml);
+
+
 $coder = new Milo\XmlRpc\Coder;
 $doc = new DOMDocument;
 $doc->preserveWhiteSpace = FALSE;
-$doc->load(__DIR__ . '/files/Coder.dateTime.xml');
-
+$doc->loadXML($xml);
 
 
 $var = $coder->decodeValueNode($doc->documentElement);
