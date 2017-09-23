@@ -305,9 +305,11 @@ class Coder
 	protected function decodeArrayNode(DOMElement $node)
 	{
 		$return = [];
-		if ($node->childNodes->length > 0) {  # An <array> without <data> workaround.
-			foreach ($node->childNodes->item(0)->childNodes as $value) {
-				$return[] = $this->decodeValueNode($value);
+		if ($node->firstChild && $node->firstChild->nodeName === 'data') {
+			foreach ($node->firstChild->childNodes as $value) {
+				if ($value->nodeName === 'value') {
+					$return[] = $this->decodeValueNode($value);
+				}
 			}
 		}
 
