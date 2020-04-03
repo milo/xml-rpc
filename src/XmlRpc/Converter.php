@@ -126,8 +126,3 @@ class Converter
 		return new MethodFaultResponse($struct->faultString, $struct->faultCode);
 	}
 }
-
-
-/** @deprecated */
-class Convertor extends Converter
-{}
