@@ -2,7 +2,7 @@
 	"name": "milo/xml-rpc",
 	"type": "library",
 	"description": "Lightweight XML-RPC library.",
-	"license": ["BSD-3-Clause", "GPL-2.0", "GPL-3.0", "MIT"],
+	"license": ["BSD-3-Clause", "GPL-2.0-only", "GPL-3.0-only", "MIT"],
 	"authors": [
 		{
 			"name": "Miloslav Hůla",
