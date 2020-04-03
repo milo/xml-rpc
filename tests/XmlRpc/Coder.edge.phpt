@@ -19,7 +19,7 @@ class Mock extends Milo\XmlRpc\Coder
 		return parent::encodeDouble($var);
 	}
 
-	public function decodeDateTime(string $text): \DateTime
+	public function decodeDateTime(string $text): \DateTimeImmutable
 	{
 		return parent::decodeDateTime($text);
 	}

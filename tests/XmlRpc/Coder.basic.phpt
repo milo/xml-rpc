@@ -32,7 +32,7 @@ Assert::equal([
 	false,
 	true,
 	-1.256,
-	DateTime::createFromFormat('Y-m-d H:i:s P', '2000-01-20 12:30:00 +00:00'),
+	DateTimeImmutable::createFromFormat('Y-m-d H:i:s P', '2000-01-20 12:30:00 +00:00'),
 	null,
 	['a' => null, 'b' => 'c'],
 	['1', 1],

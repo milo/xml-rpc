@@ -146,7 +146,7 @@ class Coder
 		} elseif (is_float($var) || is_int($var)) {
 			$node = $doc->createElement('double', $this->encodeDouble($var));
 
-		} elseif ($var instanceof \DateTime) {
+		} elseif ($var instanceof \DateTimeInterface) {
 			$node = $doc->createElement('dateTime.iso8601', $this->encodeDateTime($var));
 
 		} elseif (is_array($var)) {
@@ -210,7 +210,7 @@ class Coder
 	/**
 	 * @throws NotValidXmlException  when datetime is in inappropriate format
 	 */
-	protected function decodeDateTime(string $text): \DateTime
+	protected function decodeDateTime(string $text): \DateTimeImmutable
 	{
 		static $formats = [
 			'Y-m-d\TH:i:sP',
@@ -220,7 +220,7 @@ class Coder
 		];
 
 		foreach ($formats as $format) {
-			if (($date = \DateTime::createFromFormat($format, $text)) !== false) {
+			if (($date = \DateTimeImmutable::createFromFormat($format, $text)) !== false) {
 				if ($this->rememberDatetimeFormat) {
 					$this->lastDatetimeFormat = $format;
 				}
@@ -232,7 +232,7 @@ class Coder
 	}
 
 
-	protected function encodeDateTime(\DateTime $var): string
+	protected function encodeDateTime(\DateTimeInterface $var): string
 	{
 		if ($this->rememberDatetimeFormat && $this->lastDatetimeFormat !== null) {
 			return $var->format($this->lastDatetimeFormat);
