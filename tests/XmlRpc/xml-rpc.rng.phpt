@@ -15,7 +15,7 @@ require __DIR__ . '/../bootstrap.php';
 
 
 $rngFile = __DIR__ . '/../../src/XmlRpc/xml-rpc.rng';
-Assert::true( is_file($rngFile) );
+Assert::true(is_file($rngFile));
 
 
 

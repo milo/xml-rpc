@@ -21,11 +21,11 @@ $xml = '<value><dateTime.iso8601>20000101T15:20:00+01:00</dateTime.iso8601></val
 
 
 $doc->loadXML($xml);
-Assert::equal( $php, $coder->decodeValueNode($doc->documentElement) );
-Assert::equal( '<value><dateTime.iso8601>20000101T15:20:00+01:00</dateTime.iso8601></value>', $doc->saveXML($coder->encodeValueNode($doc, $php)) );
+Assert::equal($php, $coder->decodeValueNode($doc->documentElement));
+Assert::equal('<value><dateTime.iso8601>20000101T15:20:00+01:00</dateTime.iso8601></value>', $doc->saveXML($coder->encodeValueNode($doc, $php)));
 
 
 $coder->rememberDatetimeFormat = false;
 $doc->loadXML($xml);
-Assert::equal( $php, $coder->decodeValueNode($doc->documentElement) );
-Assert::equal( '<value><dateTime.iso8601>2000-01-01T15:20:00+01:00</dateTime.iso8601></value>', $doc->saveXML($coder->encodeValueNode($doc, $php)) );
+Assert::equal($php, $coder->decodeValueNode($doc->documentElement));
+Assert::equal('<value><dateTime.iso8601>2000-01-01T15:20:00+01:00</dateTime.iso8601></value>', $doc->saveXML($coder->encodeValueNode($doc, $php)));

@@ -44,8 +44,8 @@ for ($i = 0; $i <= 0xFF; $i++) {
 	$hex = sprintf('0x%02X', $i);
 	$values["$hex:" . ($binary ? 'T' : 'F')] = "$hex:" . ($coder::isBinary(chr($i)) ? 'T' : 'F');
 }
-Assert::same( 256, count($values) );
-Assert::same( array_keys($values), array_values($values) );
+Assert::same(256, count($values));
+Assert::same(array_keys($values), array_values($values));
 
 
 

@@ -19,10 +19,10 @@ $doc->loadXML($xml);
 
 
 
-Assert::equal( ['var' => ''], $coder->decodeValueNode($doc->documentElement));
+Assert::equal(['var' => ''], $coder->decodeValueNode($doc->documentElement));
 
 $coder->decodeStructAsObject = true;
-Assert::equal( (object) ['var' => ''], $coder->decodeValueNode($doc->documentElement));
+Assert::equal((object) ['var' => ''], $coder->decodeValueNode($doc->documentElement));
 
 
 
