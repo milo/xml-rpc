@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Milo\XmlRpc;
 
-use Exception;
+use Throwable;
 
 
 /**
@@ -42,7 +42,7 @@ class Server
 
 
 	/**
-	 * @param callable $logger  function(MethodCall|null $call, IMethodResponse|null $response, Exception|null $e)
+	 * @param callable $logger  function(MethodCall|null $call, IMethodResponse|null $response, Throwable|null $e)
 	 */
 	public function addLogger(callable $logger): void
 	{
@@ -106,7 +106,7 @@ class Server
 		} catch (FaultResponseException $e) {
 			$response = MethodFaultResponse::fromException($e);
 
-		} catch (Exception $e) {
+		} catch (Throwable $e) {
 			$response = new MethodFaultResponse('Internal server error occurred.', 500);
 		}
 
@@ -127,7 +127,7 @@ class Server
 				$response = new MethodFaultResponse("MethodCall expected but got '" . get_class($method) . "'.", 500);
 			}
 
-		} catch (Exception $e) {
+		} catch (Throwable $e) {
 			$response = MethodFaultResponse::fromException($e);
 			$this->log(null, null, $e);
 		}
@@ -140,7 +140,7 @@ class Server
 	}
 
 
-	protected function log(MethodCall $call = null, IMethodResponse $response = null, Exception $e = null): void
+	protected function log(MethodCall $call = null, IMethodResponse $response = null, Throwable $e = null): void
 	{
 		if ($this->loggers) {
 			foreach ($this->loggers as $logger) {

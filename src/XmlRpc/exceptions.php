@@ -46,7 +46,7 @@ abstract class BadXmlException extends RuntimeException
 	private $xml;
 
 
-	public function __construct(string $message = '', string $xml = '', \Exception $previous = null)
+	public function __construct(string $message = '', string $xml = '', \Throwable $previous = null)
 	{
 		parent::__construct($message, 0, $previous);
 		$this->xml = $xml;

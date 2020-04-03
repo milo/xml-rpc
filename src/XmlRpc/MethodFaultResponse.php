@@ -49,7 +49,7 @@ class MethodFaultResponse implements IMethod, IMethodResponse
 	/**
 	 * Creates fault response from Exception.
 	 */
-	public static function fromException(\Exception $e): self
+	public static function fromException(\Throwable $e): self
 	{
 		return new static($e->getMessage(), $e->getCode());
 	}
