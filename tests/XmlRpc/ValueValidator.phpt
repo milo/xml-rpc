@@ -19,7 +19,7 @@ function pass($value, $pattern)
 	Assert::same($validator, $validator->validate($value, $pattern));
 }
 
-function fail($value, $schema, $message = '', $exceptionClass = 'Milo\XmlRpc\InvalidValueException')
+function fail($value, $schema, $message = '', $exceptionClass = Milo\XmlRpc\InvalidValueException::class)
 {
 	global $validator;
 	return Assert::exception(function() use ($validator, $value, $schema) {
@@ -29,7 +29,7 @@ function fail($value, $schema, $message = '', $exceptionClass = 'Milo\XmlRpc\Inv
 
 function schemaFail($value, $schema, $message)
 {
-	return fail($value, $schema, $message, 'Milo\XmlRpc\InvalidSchemaException');
+	return fail($value, $schema, $message, Milo\XmlRpc\InvalidSchemaException::class);
 }
 
 
@@ -88,21 +88,21 @@ pass([null, null], 'null[]');
 $e = schemaFail(null, 'class', "Invalid pattern 'class'.");
 $e = Assert::exception(function() use ($e) {
 	throw $e->getPrevious();
-}, 'Milo\XmlRpc\InvalidSchemaException', "Matching to pattern 'class' is not implemented.");
+}, Milo\XmlRpc\InvalidSchemaException::class, "Matching to pattern 'class' is not implemented.");
 Assert::null($e->getPrevious());
 
 
 $e = schemaFail(null, '#foo', "Invalid pattern '#foo'.");
 $e = Assert::exception(function() use ($e) {
 	throw $e->getPrevious();
-}, 'Milo\XmlRpc\InvalidSchemaException', 'Usertypes are not implemented yet. Send me an issue.');
+}, Milo\XmlRpc\InvalidSchemaException::class, 'Usertypes are not implemented yet. Send me an issue.');
 Assert::null($e->getPrevious());
 
 
 $e = schemaFail(null, '', "Invalid pattern ''.");
 $e = Assert::exception(function() use ($e) {
 	throw $e->getPrevious();
-}, 'Milo\XmlRpc\InvalidSchemaException', "Matching to pattern '' is not implemented.");
+}, Milo\XmlRpc\InvalidSchemaException::class, "Matching to pattern '' is not implemented.");
 Assert::null($e->getPrevious());
 
 

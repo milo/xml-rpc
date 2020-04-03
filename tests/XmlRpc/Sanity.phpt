@@ -23,8 +23,8 @@ $mock = new Mock;
 
 Assert::exception(function() use ($mock) {
 	$mock->undefined;
-}, 'LogicException', 'Cannot read an undeclared property Mock::$undefined.');
+}, LogicException::class, 'Cannot read an undeclared property Mock::$undefined.');
 
 Assert::exception(function() use ($mock) {
 	$mock->undefined = '';
-}, 'LogicException', 'Cannot write to an undeclared property Mock::$undefined.');
+}, LogicException::class, 'Cannot write to an undeclared property Mock::$undefined.');

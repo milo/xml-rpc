@@ -22,8 +22,8 @@ class Mock extends Milo\XmlRpc\Converter
 
 
 $mock = new Mock;
-Assert::type('DOMDocument', $mock->createDom());
-Assert::type('Milo\XmlRpc\Coder', $mock->getCoder());
+Assert::type(DOMDocument::class, $mock->createDom());
+Assert::type(Milo\XmlRpc\Coder::class, $mock->getCoder());
 
 $coder = new Milo\XmlRpc\Coder;
 $converter = new Milo\XmlRpc\Converter($coder);

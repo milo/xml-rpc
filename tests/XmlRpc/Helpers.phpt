@@ -14,4 +14,4 @@ require __DIR__ . '/../bootstrap.php';
 
 Assert::exception(function () {
 	new Helpers;
-}, 'Milo\XmlRpc\LogicException', 'Class Milo\XmlRpc\Helpers is static and cannot be instantized.');
+}, Milo\XmlRpc\LogicException::class, 'Class Milo\XmlRpc\Helpers is static and cannot be instantized.');

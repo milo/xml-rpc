@@ -16,7 +16,7 @@ $converter = new Milo\XmlRpc\Converter;
 # From XML
 $methodResponse = $converter->fromXml(file_get_contents(__DIR__ . '/files/MethodResponse.xml'));
 
-Assert::type('Milo\XmlRpc\MethodResponse', $methodResponse);
+Assert::type(Milo\XmlRpc\MethodResponse::class, $methodResponse);
 Assert::same('', $methodResponse->getReturnValue());
 
 

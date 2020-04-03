@@ -33,7 +33,7 @@ Assert::exception(function () use ($coder) {
 	$doc = new DOMDocument;
 	$doc->loadXML('<value><invlid/></value>');
 	$coder->decodeValueNode($doc->firstChild);
-}, 'Milo\XmlRpc\CoderException', 'Converting <invlid> node is not supported.');
+}, Milo\XmlRpc\CoderException::class, 'Converting <invlid> node is not supported.');
 
 
 Assert::same('1', $coder->encodeDouble(1.0));
@@ -43,4 +43,4 @@ Assert::same('0.000004', $coder->encodeDouble(4.1E-6));
 
 Assert::exception(function () use ($coder) {
 	$coder->decodeDateTime('Invalid');
-}, 'Milo\XmlRpc\NotValidXmlException', "Inappropriate format of datetime 'Invalid'.");
+}, Milo\XmlRpc\NotValidXmlException::class, "Inappropriate format of datetime 'Invalid'.");

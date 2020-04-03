@@ -26,4 +26,4 @@ Assert::equal('<value><base64>dGVzdA==</base64></value>', $doc->saveXML($coder->
 Assert::exception(function() use ($coder, $doc) {
 	$ctx = stream_context_create();
 	$doc->saveXML($coder->encodeValueNode($doc, $ctx));
-}, 'Milo\XmlRpc\CoderException', "Conversion of 'stream-context' resource is not implemented.");
+}, Milo\XmlRpc\CoderException::class, "Conversion of 'stream-context' resource is not implemented.");

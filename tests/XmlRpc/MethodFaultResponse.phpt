@@ -15,7 +15,7 @@ $converter = new Milo\XmlRpc\Converter;
 
 # From XML
 $faultResponse = $converter->fromXml(file_get_contents(__DIR__ . '/files/MethodFaultResponse.xml'));
-Assert::type('Milo\XmlRpc\MethodFaultResponse', $faultResponse);
+Assert::type(Milo\XmlRpc\MethodFaultResponse::class, $faultResponse);
 Assert::same(0, $faultResponse->getCode());
 Assert::same('error message', $faultResponse->getMessage());
 
@@ -24,7 +24,7 @@ Assert::same('error message', $faultResponse->getMessage());
 $e = new Exception('Error message', 10);
 
 $faultResponse = Milo\XmlRpc\MethodFaultResponse::fromException($e);
-Assert::type('Milo\XmlRpc\MethodFaultResponse', $faultResponse);
+Assert::type(Milo\XmlRpc\MethodFaultResponse::class, $faultResponse);
 Assert::same(10, $faultResponse->getCode());
 Assert::same('Error message', $faultResponse->getMessage());
 

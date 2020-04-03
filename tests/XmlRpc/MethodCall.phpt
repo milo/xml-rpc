@@ -16,7 +16,7 @@ $converter = new Milo\XmlRpc\Converter;
 # From XML
 $methodCall = $converter->fromXml(file_get_contents(__DIR__ . '/files/MethodCall.xml'));
 
-Assert::type('Milo\XmlRpc\MethodCall', $methodCall);
+Assert::type(Milo\XmlRpc\MethodCall::class, $methodCall);
 Assert::same('namespace.myMethod', $methodCall->getName());
 Assert::same([''], $methodCall->getParameters());
 Assert::same(1, $methodCall->getParameterCount());

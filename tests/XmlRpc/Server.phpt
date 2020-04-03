@@ -23,14 +23,14 @@ $converter = new Milo\XmlRpc\Converter;
 function assertResponse($response, $returnValue)
 {
 	/** @var MethodResponse $response */
-	Assert::type('Milo\XmlRpc\MethodResponse', $response);
+	Assert::type(Milo\XmlRpc\MethodResponse::class, $response);
 	Assert::same($returnValue, $response->getReturnValue());
 }
 
 function assertFaultResponse($response, $message, $code)
 {
 	/** @var MethodFaultResponse $response */
-	Assert::type('Milo\XmlRpc\MethodFaultResponse', $response);
+	Assert::type(Milo\XmlRpc\MethodFaultResponse::class, $response);
 	Assert::same($message, $response->getMessage());
 	Assert::same($code, $response->getCode());
 }
@@ -38,7 +38,7 @@ function assertFaultResponse($response, $message, $code)
 
 test(function() {
 	$server = new Server;
-	Assert::type('Milo\XmlRpc\ValueValidator', $server->getValidator());
+	Assert::type(Milo\XmlRpc\ValueValidator::class, $server->getValidator());
 });
 
 
@@ -62,7 +62,7 @@ test(function() {
 
 	Assert::exception(function () use ($server) {
 		$server->registerHandler('test.Me', ['string'], function () {});
-	}, 'Milo\XmlRpc\LogicException', "Method 'test.Me' handler is already registered.", 0);
+	}, Milo\XmlRpc\LogicException::class, "Method 'test.Me' handler is already registered.", 0);
 
 	$server->replaceHandler('Test.Me', ['int'], function () { return 'OK'; });
 	assertResponse(
