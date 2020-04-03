@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 if (!extension_loaded('dom')) {
 	throw new LogicException('PHP extension DOM is missing.');
 }

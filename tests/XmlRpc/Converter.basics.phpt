@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Test: Converter basics
  */
@@ -12,7 +14,7 @@ require __DIR__ . '/../bootstrap.php';
 
 class Mock extends Milo\XmlRpc\Converter
 {
-	public function createDom()
+	public function createDom(): \DOMDocument
 	{
 		return parent::createDom();
 	}

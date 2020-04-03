@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Milo\XmlRpc;
 
 use DOMDocument;
@@ -19,23 +21,17 @@ class MethodFaultResponse implements IMethod, IMethodResponse
 	private $code;
 
 
-	/**
-	 * @param  string $message  faultString
-	 * @param  int $code  faultCode
-	 */
-	public function __construct($message, $code)
+	public function __construct(string $message, int $code)
 	{
-		$this->message = (string) $message;
-		$this->code = (int) $code;
+		$this->message = $message;
+		$this->code = $code;
 	}
 
 
 	/**
 	 * Returns faultString.
-	 *
-	 * @return string
 	 */
-	public function getMessage()
+	public function getMessage(): string
 	{
 		return $this->message;
 	}
@@ -43,10 +39,8 @@ class MethodFaultResponse implements IMethod, IMethodResponse
 
 	/**
 	 * Returns faultCode.
-	 *
-	 * @return int
 	 */
-	public function getCode()
+	public function getCode(): int
 	{
 		return $this->code;
 	}
@@ -54,11 +48,8 @@ class MethodFaultResponse implements IMethod, IMethodResponse
 
 	/**
 	 * Creates fault response from Exception.
-	 *
-	 * @param  \Exception $e
-	 * @return self
 	 */
-	public static function fromException(\Exception $e)
+	public static function fromException(\Exception $e): self
 	{
 		return new static($e->getMessage(), $e->getCode());
 	}
@@ -66,12 +57,8 @@ class MethodFaultResponse implements IMethod, IMethodResponse
 
 	/**
 	 * Fills DOM by error message and code.
-	 *
-	 * @param  DOMDocument $doc
-	 * @param  Coder $coder
-	 * @return void
 	 */
-	public function toXml(DOMDocument $doc, Coder $coder)
+	public function toXml(DOMDocument $doc, Coder $coder): void
 	{
 		$coder = clone $coder;
 		$coder->encodeBinaryAsBase64 = false;

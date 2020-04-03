@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Milo\XmlRpc;
 
 use Exception;
@@ -33,10 +35,7 @@ class Server
 	}
 
 
-	/**
-	 * @return ValueValidator
-	 */
-	public function getValidator()
+	public function getValidator(): ValueValidator
 	{
 		return $this->validator;
 	}
@@ -44,9 +43,8 @@ class Server
 
 	/**
 	 * @param callable $logger  function(MethodCall|null $call, IMethodResponse|null $response, Exception|null $e)
-	 * @return void
 	 */
-	public function addLogger(callable $logger)
+	public function addLogger(callable $logger): void
 	{
 		$this->loggers[] = $logger;
 	}
@@ -58,7 +56,7 @@ class Server
 	 * @param  callable $handler  function (array $receivedParameters)
 	 * @return $this
 	 */
-	public function registerHandler($methodName, array $validationRules, callable $handler)
+	public function registerHandler(string $methodName, array $validationRules, callable $handler): self
 	{
 		$lower = strtolower($methodName);
 		if (isset($this->methods[$lower])) {
@@ -75,7 +73,7 @@ class Server
 	 * @param  callable $handler  function (array $receivedParameters)
 	 * @return $this
 	 */
-	public function replaceHandler($methodName, array $validationRules, callable $handler)
+	public function replaceHandler(string $methodName, array $validationRules, callable $handler): self
 	{
 		$lower = strtolower($methodName);
 		$this->methods[$lower] = [
@@ -87,11 +85,7 @@ class Server
 	}
 
 
-	/**
-	 * @param  MethodCall $method
-	 * @return IMethodResponse
-	 */
-	public function handle(MethodCall $method)
+	public function handle(MethodCall $method): IMethodResponse
 	{
 		$name = $method->getName();
 		$lower = strtolower($name);
@@ -121,13 +115,7 @@ class Server
 	}
 
 
-	/**
-	 * @param  string $xml  input XML
-	 * @param  int|null $responseCode
-	 * @param  Converter|null $converter
-	 * @return string  output XML
-	 */
-	public function handleXml($xml, & $responseCode = null, Converter $converter = null)
+	public function handleXml(string $xml, int &$responseCode = null, Converter $converter = null): string
 	{
 		$converter = $converter ?: new Converter;
 
@@ -152,12 +140,7 @@ class Server
 	}
 
 
-	/**
-	 * @param  MethodCall|null $call
-	 * @param  IMethodResponse|null $response
-	 * @param  Exception|null $e
-	 */
-	protected function log(MethodCall $call = null, IMethodResponse $response = null, Exception $e = null)
+	protected function log(MethodCall $call = null, IMethodResponse $response = null, Exception $e = null): void
 	{
 		if ($this->loggers) {
 			foreach ($this->loggers as $logger) {

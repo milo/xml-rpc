@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Test: Remember last received <dateTime.iso8601> format
  */

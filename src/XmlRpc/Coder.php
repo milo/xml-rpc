@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Milo\XmlRpc;
 
 use DOMDocument;
@@ -36,11 +38,8 @@ class Coder
 
 	/**
 	 * Is string binary?
-	 *
-	 * @param  string $str
-	 * @return bool
 	 */
-	public static function isBinary($str)
+	public static function isBinary(string $str): bool
 	{
 		return (bool) preg_match('#[\x00-\x08\x0B\x0C\x0E-\x1F]#', $str);
 	}
@@ -48,13 +47,10 @@ class Coder
 
 	/**
 	 * Removes all characters which cannot be in XML.
-	 *
-	 * @param  string $str
-	 * @return string
 	 */
-	public static function sanitizeXml($str)
+	public static function sanitizeXml(string $str): string
 	{
-		return preg_replace('#[\x00-\x08\x0B\x0C\x0E-\x1F]+#', '', (string) $str);
+		return preg_replace('#[\x00-\x08\x0B\x0C\x0E-\x1F]+#', '', $str);
 	}
 
 
@@ -116,13 +112,10 @@ class Coder
 	/**
 	 * Converts PHP variable to <value> node.
 	 *
-	 * @param  DOMDocument $doc
-	 * @param  mixed $var
-	 * @param  int $level
 	 * @return DOMElement  <value> node
 	 * @throws CoderException
 	 */
-	public function encodeValueNode(DOMDocument $doc, $var, $level = 1)
+	public function encodeValueNode(DOMDocument $doc, $var, $level = 1): DOMElement
 	{
 		if ($level > (int) $this->maxEncodeDepth) {
 			throw new CoderException('Nesting level too deep or recursive dependency. Try to increase ' . __CLASS__ . '::$maxEncodeDepth');
@@ -148,7 +141,7 @@ class Coder
 			}
 
 		} elseif (is_int($var) && $var >= -2147483648 && $var <= 2147483647) {  # XML-RPC specifies 32-bit integer only
-			$node = $doc->createElement('int', number_format($var, 0, '.', ''));
+			$node = $doc->createElement('int', number_format((float) $var, 0, '.', ''));
 
 		} elseif (is_float($var) || is_int($var)) {
 			$node = $doc->createElement('double', $this->encodeDouble($var));
@@ -187,10 +180,9 @@ class Coder
 
 
 	/**
-	 * @param  string $text
 	 * @return float|string
 	 */
-	protected function decodeDouble($text)
+	protected function decodeDouble(string $text)
 	{
 		$float = (float) $text;
 
@@ -204,23 +196,21 @@ class Coder
 
 
 	/**
-	 * @param  string $var
+	 * @param  string|float|int $var
 	 * @return string
 	 */
-	protected function encodeDouble($var)
+	protected function encodeDouble($var): string
 	{
 		return preg_match('#E-([0-9]+)#', (string) $var, $m)
-			? number_format($var, (int) $m[1], '.', '')
+			? number_format((float) $var, (int) $m[1], '.', '')
 			: (string) $var;
 	}
 
 
 	/**
-	 * @param  string $text
-	 * @return \DateTime
 	 * @throws NotValidXmlException  when datetime is in inappropriate format
 	 */
-	protected function decodeDateTime($text)
+	protected function decodeDateTime(string $text): \DateTime
 	{
 		static $formats = [
 			'Y-m-d\TH:i:sP',
@@ -242,11 +232,7 @@ class Coder
 	}
 
 
-	/**
-	 * @param  \DateTime $var
-	 * @return string
-	 */
-	protected function encodeDateTime(\DateTime $var)
+	protected function encodeDateTime(\DateTime $var): string
 	{
 		if ($this->rememberDatetimeFormat && $this->lastDatetimeFormat !== null) {
 			return $var->format($this->lastDatetimeFormat);
@@ -257,7 +243,6 @@ class Coder
 
 
 	/**
-	 * @param  DOMElement $node
 	 * @return \stdClass|array
 	 */
 	protected function decodeStructNode(DOMElement $node)
@@ -277,9 +262,6 @@ class Coder
 
 
 	/**
-	 * @param  DOMDocument $doc
-	 * @param  mixed $var
-	 * @param  int $level
 	 * @return DOMElement  <struct> node
 	 */
 	protected function encodeStructNode(DOMDocument $doc, $var, $level)
@@ -289,7 +271,7 @@ class Coder
 			$memberNode = $structNode->appendChild($doc->createElement('member'));
 			$memberNode
 				->appendChild($doc->createElement('name'))
-					->appendChild($doc->createTextNode(self::sanitizeXml($name)));
+					->appendChild($doc->createTextNode(self::sanitizeXml((string) $name)));
 			$memberNode
 				->appendChild($this->encodeValueNode($doc, $item, $level + 1));
 		}
@@ -298,11 +280,7 @@ class Coder
 	}
 
 
-	/**
-	 * @param  DOMElement $node
-	 * @return array
-	 */
-	protected function decodeArrayNode(DOMElement $node)
+	protected function decodeArrayNode(DOMElement $node): array
 	{
 		$return = [];
 		if ($node->firstChild && $node->firstChild->nodeName === 'data') {
@@ -318,12 +296,9 @@ class Coder
 
 
 	/**
-	 * @param  DOMDocument $doc
-	 * @param  array $var
-	 * @param  int $level
 	 * @return DOMElement  <array> node
 	 */
-	protected function encodeArrayNode(DOMDocument $doc, array $var, $level)
+	protected function encodeArrayNode(DOMDocument $doc, array $var, int $level): DOMElement
 	{
 		$arrayNode = $doc->createElement('array');
 		$dataNode = $arrayNode->appendChild($doc->createElement('data'));
@@ -339,12 +314,9 @@ class Coder
 	/**
 	 * Converts resource content to DOMElement.
 	 *
-	 * @param  DOMDocument $doc
-	 * @param  resource $resource
-	 * @return DOMElement
 	 * @throws CoderException  when conversion is not implemented
 	 */
-	protected function encodeResource(DOMDocument $doc, $resource)
+	protected function encodeResource(DOMDocument $doc, $resource): DOMElement
 	{
 		$type = get_resource_type($resource);
 		if ($type !== 'stream') {

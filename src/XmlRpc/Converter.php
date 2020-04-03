@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Milo\XmlRpc;
 
 use DOMDocument;
@@ -25,10 +27,7 @@ class Converter
 	}
 
 
-	/**
-	 * @return Coder
-	 */
-	public function getCoder()
+	public function getCoder(): Coder
 	{
 		return $this->coder;
 	}
@@ -43,7 +42,7 @@ class Converter
 	 * @throws MalformedXmlException
 	 * @throws NotValidXmlException
 	 */
-	public function fromXml($xml, $libXmlOptions = 0)
+	public function fromXml(string $xml, int $libXmlOptions = 0)
 	{
 		$doc = $this->createDom();
 
@@ -73,11 +72,9 @@ class Converter
 	/**
 	 * Creates XML from IMethod object.
 	 *
-	 * @param  IMethod $method
-	 * @return string
 	 * @throws NotValidXmlException
 	 */
-	public function toXml(IMethod $method)
+	public function toXml(IMethod $method): string
 	{
 		$doc = $this->createDom();
 		$method->toXml($doc, $this->coder);
@@ -95,10 +92,7 @@ class Converter
 	}
 
 
-	/**
-	 * @return DOMDocument
-	 */
-	protected function createDom()
+	protected function createDom(): DOMDocument
 	{
 		$doc = new DOMDocument;
 		$doc->preserveWhiteSpace = false;
@@ -106,11 +100,7 @@ class Converter
 	}
 
 
-	/**
-	 * @param  DOMDocument $doc
-	 * @return MethodCall
-	 */
-	protected function createMethodCall(DOMDocument $doc)
+	protected function createMethodCall(DOMDocument $doc): MethodCall
 	{
 		$name = $doc->getElementsByTagName('methodName')->item(0)->textContent;
 		$parameters = [];
@@ -122,11 +112,7 @@ class Converter
 	}
 
 
-	/**
-	 * @param  DOMDocument $doc
-	 * @return MethodResponse
-	 */
-	protected function createMethodResponse(DOMDocument $doc)
+	protected function createMethodResponse(DOMDocument $doc): MethodResponse
 	{
 		return new MethodResponse(
 			$this->coder->decodeValueNode($doc->getElementsByTagName('value')->item(0))
@@ -134,11 +120,7 @@ class Converter
 	}
 
 
-	/**
-	 * @param  DOMDocument $doc
-	 * @return MethodFaultResponse
-	 */
-	protected function createMethodFaultResponse(DOMDocument $doc)
+	protected function createMethodFaultResponse(DOMDocument $doc): MethodFaultResponse
 	{
 		$struct = (object) $this->coder->decodeValueNode($doc->getElementsByTagName('value')->item(0));
 		return new MethodFaultResponse($struct->faultString, $struct->faultCode);

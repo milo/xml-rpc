@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Milo\XmlRpc;
 
 use DOMDocument;
@@ -38,12 +40,8 @@ class MethodResponse implements IMethod, IMethodResponse
 
 	/**
 	 * Fills DOM by return value.
-	 *
-	 * @param  DOMDocument $doc
-	 * @param  Coder $coder
-	 * @return void
 	 */
-	public function toXml(DOMDocument $doc, Coder $coder)
+	public function toXml(DOMDocument $doc, Coder $coder): void
 	{
 		$methodResponseNode = $doc->appendChild($doc->createElement('methodResponse'));
 		$methodResponseNode

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Milo\XmlRpc;
 
 use DOMDocument;
@@ -10,10 +12,5 @@ use DOMDocument;
  */
 interface IMethod
 {
-	/**
-	 * @param  DOMDocument $doc
-	 * @param  Coder $coder
-	 * @return void
-	 */
-	function toXml(DOMDocument $doc, Coder $coder);
+	function toXml(DOMDocument $doc, Coder $coder): void;
 }

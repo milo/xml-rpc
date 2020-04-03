@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Test: Coder's edge cases
  */
@@ -12,12 +14,12 @@ require __DIR__ . '/../bootstrap.php';
 
 class Mock extends Milo\XmlRpc\Coder
 {
-	public function encodeDouble($var)
+	public function encodeDouble($var): string
 	{
 		return parent::encodeDouble($var);
 	}
 
-	public function decodeDateTime($text)
+	public function decodeDateTime(string $text): \DateTime
 	{
 		return parent::decodeDateTime($text);
 	}

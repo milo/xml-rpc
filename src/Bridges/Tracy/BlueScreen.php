@@ -1,14 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Milo\XmlRpc\Bridges\Tracy;
 
 
 class BlueScreen
 {
-	/**
-	 * @return string[]
-	 */
-	public static function getCollapsePaths()
+	public static function getCollapsePaths(): array
 	{
 		return [
 			realpath(__DIR__ . '/../../XmlRpc/Strict.php'),

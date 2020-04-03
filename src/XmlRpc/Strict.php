@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Milo\XmlRpc;
 
 
@@ -9,21 +11,18 @@ namespace Milo\XmlRpc;
 trait Strict
 {
 	/**
-	 * @param  string $name
 	 * @throws LogicException
 	 */
-	public function & __get($name)
+	public function & __get(string $name)
 	{
 		throw new LogicException('Cannot read an undeclared property ' . get_class($this) . '::$' . $name . '.');
 	}
 
 
 	/**
-	 * @param  string $name
-	 * @param  mixed $value
 	 * @throws LogicException
 	 */
-	public function __set($name, $value)
+	public function __set(string $name, $value)
 	{
 		throw new LogicException('Cannot write to an undeclared property ' . get_class($this) . '::$' . $name . '.');
 	}

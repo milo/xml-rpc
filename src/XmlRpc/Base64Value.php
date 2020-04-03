@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Milo\XmlRpc;
 
 
@@ -14,19 +16,13 @@ class Base64Value
 	private $value;
 
 
-	/**
-	 * @param  string $value
-	 */
-	public function __construct($value)
+	public function __construct(string $value)
 	{
-		$this->value = (string) $value;
+		$this->value = $value;
 	}
 
 
-	/**
-	 * @return string
-	 */
-	public function getValue()
+	public function getValue(): string
 	{
 		return $this->value;
 	}

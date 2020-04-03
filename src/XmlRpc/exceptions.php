@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Milo\XmlRpc;
 
 
@@ -44,12 +46,7 @@ abstract class BadXmlException extends RuntimeException
 	private $xml;
 
 
-	/**
-	 * @param  string $message
-	 * @param  string $xml
-	 * @param  \Exception|null $previous
-	 */
-	public function __construct($message = '', $xml = '', \Exception $previous = null)
+	public function __construct(string $message = '', string $xml = '', \Exception $previous = null)
 	{
 		parent::__construct($message, 0, $previous);
 		$this->xml = $xml;
@@ -123,10 +120,7 @@ class LibXmlErrorException extends \ErrorException implements IException
 	}
 
 
-	/**
-	 * @return int
-	 */
-	final public function getColumn()
+	final public function getColumn(): int
 	{
 		return $this->column;
 	}

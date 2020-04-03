@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Milo\XmlRpc;
 
 use DOMDocument;
@@ -19,23 +21,17 @@ class MethodCall implements IMethod
 	private $parameters;
 
 
-	/**
-	 * @param  string $name
-	 * @param  array $parameters
-	 */
-	public function __construct($name, array $parameters = [])
+	public function __construct(string $name, array $parameters = [])
 	{
-		$this->name = (string) $name;
+		$this->name = $name;
 		$this->parameters = $parameters;
 	}
 
 
 	/**
 	 * Returns method name.
-	 *
-	 * @return string
 	 */
-	public function getName()
+	public function getName(): string
 	{
 		return $this->name;
 	}
@@ -43,10 +39,8 @@ class MethodCall implements IMethod
 
 	/**
 	 * Returns method parameters.
-	 *
-	 * @return array
 	 */
-	public function getParameters()
+	public function getParameters(): array
 	{
 		return $this->parameters;
 	}
@@ -54,10 +48,8 @@ class MethodCall implements IMethod
 
 	/**
 	 * Returns method parameter count.
-	 *
-	 * @return int
 	 */
-	public function getParameterCount()
+	public function getParameterCount(): int
 	{
 		return count($this->parameters);
 	}
@@ -65,12 +57,8 @@ class MethodCall implements IMethod
 
 	/**
 	 * Fills DOM by method name and parameters.
-	 *
-	 * @param  DOMDocument $doc
-	 * @param  Coder $coder
-	 * @return void
 	 */
-	public function toXml(DOMDocument $doc, Coder $coder)
+	public function toXml(DOMDocument $doc, Coder $coder): void
 	{
 		$methodCallNode = $doc->appendChild($doc->createElement('methodCall'));
 		$methodCallNode

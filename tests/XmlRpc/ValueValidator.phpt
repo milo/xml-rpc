@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Test: ValueValidator
  */
@@ -97,10 +99,10 @@ $e = Assert::exception(function() use ($e) {
 Assert::null( $e->getPrevious() );
 
 
-$e = schemaFail( null, null, "Invalid pattern ''." );
+$e = schemaFail( null, '', "Invalid pattern ''." );
 $e = Assert::exception(function() use ($e) {
 	throw $e->getPrevious( );
-}, 'Milo\XmlRpc\InvalidSchemaException', 'Pattern must be a string.' );
+}, 'Milo\XmlRpc\InvalidSchemaException', "Matching to pattern '' is not implemented." );
 Assert::null( $e->getPrevious() );
 
 

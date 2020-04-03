@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Milo\XmlRpc;
 
 
@@ -24,7 +26,7 @@ class Helpers
 	/**
 	 * Enable LibXML error handling.
 	 */
-	public static function handleXmlErrors()
+	public static function handleXmlErrors(): void
 	{
 		self::$errorHandling[] = libxml_use_internal_errors(true);
 	}
@@ -32,11 +34,8 @@ class Helpers
 
 	/**
 	 * Fetch all LibXML errors and converts them into LibXmlErrorException chain.
-	 *
-	 * @param  bool $restoreHandling  restore LibXML errors handling
-	 * @return LibXmlErrorException|null
 	 */
-	public static function fetchXmlErrors($restoreHandling = true)
+	public static function fetchXmlErrors(bool $restoreHandling = true): ?LibXmlErrorException
 	{
 		$e = null;
 		foreach (array_reverse(libxml_get_errors()) as $error) {
@@ -54,9 +53,8 @@ class Helpers
 
 	/**
 	 * Restore LibXML errors handling.
-	 * @return void
 	 */
-	public static function restoreErrorHandling()
+	public static function restoreErrorHandling(): void
 	{
 		libxml_use_internal_errors(array_pop(self::$errorHandling));
 	}

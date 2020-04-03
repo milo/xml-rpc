@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Milo\XmlRpc;
 
 
@@ -26,14 +28,11 @@ class ValueValidator
 
 
 	/**
-	 * @param  mixed $value  value to validate
-	 * @param  mixed $schema  validation schema
 	 * @param  string $path  dumped path to structure when validation fails
-	 * @return self
 	 * @throws InvalidValueException
 	 * @throws InvalidSchemaException
 	 */
-	public function validate($value, $schema, $path = 'root')
+	public function validate($value, $schema, string $path = 'root'): self
 	{
 		if (is_array($schema)) {
 			if (!is_array($value)) {
@@ -51,14 +50,10 @@ class ValueValidator
 
 
 	/**
-	 * @param  array $value
-	 * @param  array $schema
-	 * @param  string $path
-	 * @return void
 	 * @throws InvalidValueException
 	 * @throws InvalidSchemaException
 	 */
-	protected function validateByArray(array $value, array $schema, $path)
+	protected function validateByArray(array $value, array $schema, string $path): void
 	{
 		if (static::isList($schema) && array_keys($schema) !== array_keys($value)) {
 			if (!static::isList($value)) {
@@ -76,7 +71,7 @@ class ValueValidator
 				continue;
 			}
 
-			$member = $this->parseMember($index);
+			$member = $this->parseMember((string) $index);
 			if (!array_key_exists($member->name, $value)) {
 				if (!$member->isOptional) {
 					throw new InvalidValueException("Member {$path}{$this->pathPrefix}{$member->name}{$this->pathSuffix} is missing.");
@@ -102,14 +97,11 @@ class ValueValidator
 
 
 	/**
-	 * @param  mixed $value
 	 * @param  string $patternStr  validation pattern
-	 * @param  string $path
-	 * @return void
 	 * @throws InvalidValueException
 	 * @throws InvalidSchemaException
 	 */
-	protected function validateByPattern($value, $patternStr, $path)
+	protected function validateByPattern($value, string $patternStr, string $path): void
 	{
 		try {
 			foreach ($this->parsePatterns($patternStr) as $pattern) {
@@ -127,12 +119,9 @@ class ValueValidator
 
 
 	/**
-	 * @param  mixed $value
-	 * @param  \stdClass $pattern
-	 * @return bool
 	 * @throws InvalidSchemaException
 	 */
-	protected function match($value, \stdClass $pattern)
+	protected function match($value, \stdClass $pattern): bool
 	{
 		if ($pattern->isArray) {
 			if (!is_array($value)) {
@@ -144,7 +133,7 @@ class ValueValidator
 
 			$match = true;
 			foreach ($value as $v) {
-				$match &= $this->match($v, $clone);
+				$match = $match && $this->match($v, $clone);
 			}
 
 			return $match;
@@ -175,11 +164,7 @@ class ValueValidator
 	}
 
 
-	/**
-	 * @param  string $name
-	 * @return \stdClass
-	 */
-	protected function parseMember($name)
+	protected function parseMember(string $name): \stdClass
 	{
 		$optional = is_string($name) && substr($name, -1) === '?';
 		return (object) [
@@ -190,17 +175,12 @@ class ValueValidator
 
 
 	/**
-	 * @param  string $pattern
 	 * @return \stdClass[]
 	 * @throws InvalidSchemaException
 	 */
-	protected function parsePatterns($pattern)
+	protected function parsePatterns(string $pattern): array
 	{
 		static $cache = [];
-
-		if (!is_string($pattern)) {
-			throw new InvalidSchemaException("Pattern must be a string.");
-		}
 
 		$patterns = & $cache[$pattern];
 		if ($patterns === null) {
@@ -219,11 +199,7 @@ class ValueValidator
 	}
 
 
-	/**
-	 * @param  array $value
-	 * @return bool
-	 */
-	private static function isList(array $value)
+	private static function isList(array $value): bool
 	{
 		$length = count($value);
 		return $length === 0 || array_keys($value) === range(0, $length - 1);
