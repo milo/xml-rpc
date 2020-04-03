@@ -12,7 +12,8 @@
 	],
 	"require": {
 		"php": ">=7.1",
-		"ext-dom": "*"
+		"ext-dom": "*",
+		"ext-libxml": "*"
 	},
 	"require-dev": {
 		"nette/tester": "~2.3.0"
