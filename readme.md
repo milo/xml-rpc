@@ -2,6 +2,8 @@ XML-RPC
 =======
 This library helps to work with XML-RPC calls and responses. It requires only PHP DOM extension. It is based on word written specification on http://www.xmlrpc.com/.
 
+PHP 7.1 or newer is required since v3.0 release. The v2.x releases supports PHP 5.4.
+
 Simple XML-RPC client and server examples follow.
 
 
