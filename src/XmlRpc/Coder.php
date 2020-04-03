@@ -19,13 +19,13 @@ class Coder
 	use Strict;
 
 	/** @var bool  convert <struct> as stdClass object; array otherwise */
-	public $decodeStructAsObject = FALSE;
+	public $decodeStructAsObject = false;
 
 	/** @var bool  encode binary strings as <base64> */
-	public $encodeBinaryAsBase64 = TRUE;
+	public $encodeBinaryAsBase64 = true;
 
 	/** @var bool  remember datetime format used for decoding an use it for encoding */
-	public $rememberDatetimeFormat = TRUE;
+	public $rememberDatetimeFormat = true;
 
 	/** @var int  encode depth limit */
 	public $maxEncodeDepth = 20;
@@ -100,7 +100,7 @@ class Coder
 				return base64_decode($textContent);
 
 			case 'nil':
-				return NULL;
+				return null;
 
 			case 'struct':
 				return $this->decodeStructNode($node->firstChild);
@@ -130,7 +130,7 @@ class Coder
 		} elseif ($var instanceof IValueConvertible) {
 			return $this->encodeValueNode($doc, $var->getXmlRpcValue(), $level + 1);
 
-		} elseif ($var === NULL) {
+		} elseif ($var === null) {
 			$node = $doc->createElement('nil');
 
 		} elseif (is_bool($var)) {
@@ -195,7 +195,7 @@ class Coder
 		$float = (float) $text;
 
 		$decimals = 0;
-		if (($dot = strpos($text, '.')) !== FALSE) {
+		if (($dot = strpos($text, '.')) !== false) {
 			$decimals = strlen($text) - $dot - 1;
 		}
 
@@ -230,7 +230,7 @@ class Coder
 		];
 
 		foreach ($formats as $format) {
-			if (($date = \DateTime::createFromFormat($format, $text)) !== FALSE) {
+			if (($date = \DateTime::createFromFormat($format, $text)) !== false) {
 				if ($this->rememberDatetimeFormat) {
 					$this->lastDatetimeFormat = $format;
 				}
@@ -248,7 +248,7 @@ class Coder
 	 */
 	protected function encodeDateTime(\DateTime $var)
 	{
-		if ($this->rememberDatetimeFormat && $this->lastDatetimeFormat !== NULL) {
+		if ($this->rememberDatetimeFormat && $this->lastDatetimeFormat !== null) {
 			return $var->format($this->lastDatetimeFormat);
 		}
 
@@ -356,5 +356,4 @@ class Coder
 			? $doc->createElement('base64', $data)
 			: $doc->createElement('base64');
 	}
-
 }

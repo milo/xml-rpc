@@ -47,9 +47,9 @@ abstract class BadXmlException extends RuntimeException
 	/**
 	 * @param  string $message
 	 * @param  string $xml
-	 * @param  \Exception|NULL $previous
+	 * @param  \Exception|null $previous
 	 */
-	public function __construct($message = '', $xml = '', \Exception $previous = NULL)
+	public function __construct($message = '', $xml = '', \Exception $previous = null)
 	{
 		parent::__construct($message, 0, $previous);
 		$this->xml = $xml;
@@ -63,7 +63,6 @@ abstract class BadXmlException extends RuntimeException
 	{
 		return $this->xml;
 	}
-
 }
 
 
@@ -117,7 +116,7 @@ class LibXmlErrorException extends \ErrorException implements IException
 	private $column;
 
 
-	final public function __construct(\LibXmlError $error, self $previous = NULL)
+	final public function __construct(\LibXmlError $error, self $previous = null)
 	{
 		parent::__construct(trim($error->message), $error->code, $error->level, $error->file, $error->line, $previous);
 		$this->column = $error->column;
@@ -131,5 +130,4 @@ class LibXmlErrorException extends \ErrorException implements IException
 	{
 		return $this->column;
 	}
-
 }

@@ -15,7 +15,7 @@ assertValueElement($xml);
 
 $coder = new Milo\XmlRpc\Coder;
 $doc = new DOMDocument;
-$doc->preserveWhiteSpace = FALSE;
+$doc->preserveWhiteSpace = false;
 $doc->loadXML($xml);
 
 
@@ -27,12 +27,12 @@ Assert::equal([
 	'',
 	123,
 	-65535,
-	FALSE,
-	TRUE,
+	false,
+	true,
 	-1.256,
 	DateTime::createFromFormat('Y-m-d H:i:s P', '2000-01-20 12:30:00 +00:00'),
-	NULL,
-	['a' => NULL, 'b' => 'c'],
+	null,
+	['a' => null, 'b' => 'c'],
 	['1', 1],
 	[],
 ], $var);
@@ -41,7 +41,7 @@ Assert::equal([
 
 # From PHP to XML
 $doc = new DOMDocument;
-$doc->formatOutput = TRUE;
+$doc->formatOutput = true;
 $node = $coder->encodeValueNode($doc, $var);
 Assert::same(
 	$xml,

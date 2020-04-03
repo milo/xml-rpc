@@ -69,10 +69,10 @@ class ValueValidator
 		}
 
 		$keys = [];
-		$allowOthers = FALSE;
+		$allowOthers = false;
 		foreach ($schema as $index => $pattern) {
 			if ($index === self::ANY) {
-				$allowOthers = TRUE;
+				$allowOthers = true;
 				continue;
 			}
 
@@ -136,13 +136,13 @@ class ValueValidator
 	{
 		if ($pattern->isArray) {
 			if (!is_array($value)) {
-				return FALSE;
+				return false;
 			}
 
 			$clone = clone $pattern;
-			$clone->isArray = FALSE;
+			$clone->isArray = false;
 
-			$match = TRUE;
+			$match = true;
 			foreach ($value as $v) {
 				$match &= $this->match($v, $clone);
 			}
@@ -152,11 +152,11 @@ class ValueValidator
 
 		static $functions = [
 			'array', 'bool', 'callable', 'double', 'float', 'int', 'integer',
-			'null', 'NULL', 'numeric', 'object', 'resource', 'scalar', 'string'
+			'null', 'null', 'numeric', 'object', 'resource', 'scalar', 'string'
 		];
 
 		if ($pattern->type === self::ANY) {
-			return TRUE;
+			return true;
 
 		} elseif ($pattern->type === self::T_ARRAY) {
 			return is_array($value);
@@ -164,7 +164,7 @@ class ValueValidator
 		} elseif ($pattern->isUserType) {
 			throw new InvalidSchemaException('Usertypes are not implemented yet. Send me an issue.');
 
-		} elseif (in_array($pattern->type, $functions, TRUE)) {
+		} elseif (in_array($pattern->type, $functions, true)) {
 			return call_user_func("is_$pattern->type", $value);
 
 		} elseif (class_exists($pattern->type)) {
@@ -203,7 +203,7 @@ class ValueValidator
 		}
 
 		$patterns = & $cache[$pattern];
-		if ($patterns === NULL) {
+		if ($patterns === null) {
 			$patterns = [];
 			foreach (explode('|', $pattern) as $raw) {
 				preg_match('~^(#)?(.*?)(\[])?\z~', $raw, $m);
@@ -228,5 +228,4 @@ class ValueValidator
 		$length = count($value);
 		return $length === 0 || array_keys($value) === range(0, $length - 1);
 	}
-
 }

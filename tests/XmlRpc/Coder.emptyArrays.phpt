@@ -20,7 +20,7 @@ foreach ($cases as $key => $xml) {
 	assertValueElement($xml);
 	$coder = new Milo\XmlRpc\Coder;
 	$doc = new DOMDocument;
-	$doc->preserveWhiteSpace = FALSE;
+	$doc->preserveWhiteSpace = false;
 	$doc->loadXML($xml);
 
 	Assert::equal([], $coder->decodeValueNode($doc->documentElement), "Case: $key");

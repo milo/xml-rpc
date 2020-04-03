@@ -74,7 +74,7 @@ class MethodFaultResponse implements IMethod, IMethodResponse
 	public function toXml(DOMDocument $doc, Coder $coder)
 	{
 		$coder = clone $coder;
-		$coder->encodeBinaryAsBase64 = FALSE;
+		$coder->encodeBinaryAsBase64 = false;
 
 		$struct = (object) [
 			'faultCode' => $this->code,
@@ -86,5 +86,4 @@ class MethodFaultResponse implements IMethod, IMethodResponse
 			->appendChild($doc->createElement('fault'))
 				->appendChild($coder->encodeValueNode($doc, $struct));
 	}
-
 }

@@ -26,7 +26,7 @@ class Helpers
 	 */
 	public static function handleXmlErrors()
 	{
-		self::$errorHandling[] = libxml_use_internal_errors(TRUE);
+		self::$errorHandling[] = libxml_use_internal_errors(true);
 	}
 
 
@@ -34,11 +34,11 @@ class Helpers
 	 * Fetch all LibXML errors and converts them into LibXmlErrorException chain.
 	 *
 	 * @param  bool $restoreHandling  restore LibXML errors handling
-	 * @return LibXmlErrorException|NULL
+	 * @return LibXmlErrorException|null
 	 */
-	public static function fetchXmlErrors($restoreHandling = TRUE)
+	public static function fetchXmlErrors($restoreHandling = true)
 	{
-		$e = NULL;
+		$e = null;
 		foreach (array_reverse(libxml_get_errors()) as $error) {
 			$e = new LibXmlErrorException($error, $e);
 		}
@@ -60,5 +60,4 @@ class Helpers
 	{
 		libxml_use_internal_errors(array_pop(self::$errorHandling));
 	}
-
 }

@@ -18,7 +18,7 @@ $xml = '<value><base64>' . base64_encode($php) . '</base64></value>';
 
 
 $doc = new DOMDocument;
-$doc->preserveWhiteSpace = FALSE;
+$doc->preserveWhiteSpace = false;
 $doc->loadXML($xml);
 
 Assert::same($php, $coder->decodeValueNode($doc->documentElement));
@@ -27,9 +27,9 @@ Assert::same($xml, $doc->saveXML($coder->encodeValueNode($doc, $php)));
 
 
 $doc = new DOMDocument;
-$doc->preserveWhiteSpace = FALSE;
+$doc->preserveWhiteSpace = false;
 
-$coder->encodeBinaryAsBase64 = FALSE;
+$coder->encodeBinaryAsBase64 = false;
 Assert::same('<value><string>Binary--string</string></value>', $doc->saveXML($coder->encodeValueNode($doc, $php)));
 
 

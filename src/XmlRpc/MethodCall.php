@@ -86,5 +86,4 @@ class MethodCall implements IMethod
 			}
 		}
 	}
-
 }

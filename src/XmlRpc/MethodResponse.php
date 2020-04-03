@@ -51,5 +51,4 @@ class MethodResponse implements IMethod, IMethodResponse
 				->appendChild($doc->createElement('param'))
 					->appendChild($coder->encodeValueNode($doc, $this->returnValue));
 	}
-
 }

@@ -127,7 +127,7 @@ test(function() {
 		$server->handleXml($converter->toXml($call))
 	);
 
-	$response = new MethodResponse(NULL);
+	$response = new MethodResponse(null);
 	Assert::match(
 		"%a%MethodCall expected but got 'Milo\\XmlRpc\\MethodResponse'.%a%",
 		$server->handleXml($converter->toXml($response))
@@ -147,7 +147,7 @@ test(function() {
 
 
 test(function() {
-	$c = $r = $e = NULL;
+	$c = $r = $e = null;
 
 	$server = new Server;
 	$server->addLogger(function ($call, $response, $exception) use (& $c, & $r, & $e) {

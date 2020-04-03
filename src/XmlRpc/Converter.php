@@ -13,13 +13,13 @@ class Converter
 	use Strict;
 
 	/** @var bool  indent exported XML (more or less, debug purpose only) */
-	public $indentXmlOutput = FALSE;
+	public $indentXmlOutput = false;
 
 	/** @var Coder */
 	private $coder;
 
 
-	public function __construct(Coder $coder = NULL)
+	public function __construct(Coder $coder = null)
 	{
 		$this->coder = $coder ?: new Coder;
 	}
@@ -101,7 +101,7 @@ class Converter
 	protected function createDom()
 	{
 		$doc = new DOMDocument;
-		$doc->preserveWhiteSpace = FALSE;
+		$doc->preserveWhiteSpace = false;
 		return $doc;
 	}
 
@@ -143,7 +143,6 @@ class Converter
 		$struct = (object) $this->coder->decodeValueNode($doc->getElementsByTagName('value')->item(0));
 		return new MethodFaultResponse($struct->faultString, $struct->faultCode);
 	}
-
 }
 
 

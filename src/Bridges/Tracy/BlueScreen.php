@@ -5,7 +5,6 @@ namespace Milo\XmlRpc\Bridges\Tracy;
 
 class BlueScreen
 {
-
 	/**
 	 * @return string[]
 	 */
@@ -16,5 +15,4 @@ class BlueScreen
 			realpath(__DIR__ . '/../../XmlRpc/ValueValidator.php'),
 		];
 	}
-
 }

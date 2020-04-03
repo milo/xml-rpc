@@ -27,5 +27,4 @@ trait Strict
 	{
 		throw new LogicException('Cannot write to an undeclared property ' . get_class($this) . '::$' . $name . '.');
 	}
-
 }

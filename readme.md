@@ -29,7 +29,7 @@ $context = stream_context_create([
 		'content' => $converter->toXml($call),
 	),
 ]);
-$xml = file_get_contents('http://example.com', FALSE, $context);
+$xml = file_get_contents('http://example.com', false, $context);
 
 
 # XML response parsing
@@ -101,8 +101,8 @@ $xml = file_get_contents('php://input');
 # Method call handler server
 $server = new XmlRpc\Server;
 $server->registerHandler(
-	'my.method', ['string', 'int', '2?' => 'bool|NULL'],
-	function ($string, $int, $bool = NULL) {
+	'my.method', ['string', 'int', '2?' => 'bool|null'],
+	function ($string, $int, $bool = null) {
 		# Throw XmlRpc\FaultResponseException and client will get your error message and code.
 		# Throw anything else and client will get fault response with code 500.
 		return [...];
@@ -130,7 +130,7 @@ echo $converter->toXml($response);
 
 
 # To log what's happening inside.
-$server->addLogger(function (MethodCall $call = NULL, IMethodResponse $response = NULL, \Exception $e = NULL) {
+$server->addLogger(function (MethodCall $call = null, IMethodResponse $response = null, \Exception $e = null) {
 	...
 });
 ```

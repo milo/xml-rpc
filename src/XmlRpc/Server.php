@@ -27,7 +27,7 @@ class Server
 	private $loggers = [];
 
 
-	public function __construct(ValueValidator $validator = NULL)
+	public function __construct(ValueValidator $validator = null)
 	{
 		$this->validator = $validator ?: new ValueValidator;
 	}
@@ -43,7 +43,7 @@ class Server
 
 
 	/**
-	 * @param callable $logger  function(MethodCall|NULL $call, IMethodResponse|NULL $response, Exception|NULL $e)
+	 * @param callable $logger  function(MethodCall|null $call, IMethodResponse|null $response, Exception|null $e)
 	 * @return void
 	 */
 	public function addLogger(callable $logger)
@@ -96,7 +96,7 @@ class Server
 		$name = $method->getName();
 		$lower = strtolower($name);
 
-		$e = NULL;
+		$e = null;
 		try {
 			if (array_key_exists($lower, $this->methods)) {
 				$this->validator->validate($method->getParameters(), $this->methods[$lower][self::KEY_RULES], "$name() args");
@@ -123,11 +123,11 @@ class Server
 
 	/**
 	 * @param  string $xml  input XML
-	 * @param  int|NULL $responseCode
-	 * @param  Converter|NULL $converter
+	 * @param  int|null $responseCode
+	 * @param  Converter|null $converter
 	 * @return string  output XML
 	 */
-	public function handleXml($xml, & $responseCode = NULL, Converter $converter = NULL)
+	public function handleXml($xml, & $responseCode = null, Converter $converter = null)
 	{
 		$converter = $converter ?: new Converter;
 
@@ -141,7 +141,7 @@ class Server
 
 		} catch (Exception $e) {
 			$response = MethodFaultResponse::fromException($e);
-			$this->log(NULL, NULL, $e);
+			$this->log(null, null, $e);
 		}
 
 		if ($response instanceof MethodFaultResponse) {
@@ -153,11 +153,11 @@ class Server
 
 
 	/**
-	 * @param  MethodCall|NULL $call
-	 * @param  IMethodResponse|NULL $response
-	 * @param  Exception|NULL $e
+	 * @param  MethodCall|null $call
+	 * @param  IMethodResponse|null $response
+	 * @param  Exception|null $e
 	 */
-	protected function log(MethodCall $call = NULL, IMethodResponse $response = NULL, Exception $e = NULL)
+	protected function log(MethodCall $call = null, IMethodResponse $response = null, Exception $e = null)
 	{
 		if ($this->loggers) {
 			foreach ($this->loggers as $logger) {
@@ -165,5 +165,4 @@ class Server
 			}
 		}
 	}
-
 }

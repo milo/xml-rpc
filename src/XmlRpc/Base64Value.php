@@ -30,5 +30,4 @@ class Base64Value
 	{
 		return $this->value;
 	}
-
 }

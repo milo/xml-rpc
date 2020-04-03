@@ -10,12 +10,10 @@ use DOMDocument;
  */
 interface IMethod
 {
-
 	/**
 	 * @param  DOMDocument $doc
 	 * @param  Coder $coder
 	 * @return void
 	 */
 	function toXml(DOMDocument $doc, Coder $coder);
-
 }

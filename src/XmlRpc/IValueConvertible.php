@@ -8,10 +8,8 @@ namespace Milo\XmlRpc;
  */
 interface IValueConvertible
 {
-
 	/**
 	 * @return mixed
 	 */
 	function getXmlRpcValue();
-
 }

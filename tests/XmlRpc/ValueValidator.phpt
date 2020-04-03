@@ -34,70 +34,70 @@ function schemaFail($value, $schema, $message)
 
 # String patterns
 pass( [], '*' );
-pass( ['', TRUE, 0], '*[]' );
+pass( ['', true, 0], '*[]' );
 
 pass( [], 'array' );
-fail( NULL, 'array' );
+fail( null, 'array' );
 
 pass( [], '[]' );
-fail( NULL, '[]' );
+fail( null, '[]' );
 
-pass( TRUE, 'bool' );
-fail( NULL, 'bool' );
+pass( true, 'bool' );
+fail( null, 'bool' );
 
 pass( function() {}, 'callable' );
-fail( NULL, 'callable' );
+fail( null, 'callable' );
 
 pass( 0.0, 'float' );
-fail( NULL, 'float' );
+fail( null, 'float' );
 
 pass( 0, 'int' );
-fail( NULL, 'int' );
+fail( null, 'int' );
 
 pass( 0, 'integer' );
-fail( NULL, 'integer' );
+fail( null, 'integer' );
 
-pass( NULL, 'null' );
+pass( null, 'null' );
 fail( 0, 'null' );
 
 pass( 0, 'numeric' );
-fail( NULL, 'numeric' );
+fail( null, 'numeric' );
 
-pass( (object) NULL, 'object' );
-fail( NULL, 'object' );
+pass( (object) null, 'object' );
+fail( null, 'object' );
 
 pass( fopen(__FILE__, 'r'), 'resource' );
-fail( NULL, 'object' );
+fail( null, 'object' );
 
 pass( 0, 'scalar' );
 fail( [], 'scalar' );
 
 pass( '', 'string' );
-fail( NULL, 'string' );
+fail( null, 'string' );
 
 pass( new DateTime, '\DateTime' );
 fail( new stdClass, '\DateTime' );
 
-pass( [NULL, NULL], 'null[]' );
+pass( [null, null], 'null[]' );
 
 
 
 # Invalid patterns
-$e = schemaFail( NULL, 'class', "Invalid pattern 'class'." );
+$e = schemaFail( null, 'class', "Invalid pattern 'class'." );
 $e = Assert::exception(function() use ($e) {
 	throw $e->getPrevious( );
 }, 'Milo\XmlRpc\InvalidSchemaException', "Matching to pattern 'class' is not implemented." );
 Assert::null( $e->getPrevious() );
 
 
-$e = schemaFail( NULL, '#foo', "Invalid pattern '#foo'." );
+$e = schemaFail( null, '#foo', "Invalid pattern '#foo'." );
 $e = Assert::exception(function() use ($e) {
 	throw $e->getPrevious( );
 }, 'Milo\XmlRpc\InvalidSchemaException', 'Usertypes are not implemented yet. Send me an issue.' );
 Assert::null( $e->getPrevious() );
 
 
-$e = schemaFail( NULL, NULL, "Invalid pattern ''." );
+$e = schemaFail( null, null, "Invalid pattern ''." );
 $e = Assert::exception(function() use ($e) {
 	throw $e->getPrevious( );
 }, 'Milo\XmlRpc\InvalidSchemaException', 'Pattern must be a string.' );
@@ -106,7 +106,7 @@ Assert::null( $e->getPrevious() );
 
 
 # Patterns by array
-fail( NULL, [], 'Value of testVar must be an array.' );
+fail( null, [], 'Value of testVar must be an array.' );
 
 # Optional vs. required member
 pass( [], ['foo?' => '*'] );
@@ -118,7 +118,7 @@ fail( ['a'=>'', 'b'=>'', 'c'=>''], ['a'=>'string'], 'Not allowed member testVar[
 
 # Array required
 pass( ['a'=>[]], ['a'=>'string[]'] );
-fail( ['a'=>NULL], ['a'=>'string[]'], "Value of testVar[a] does not match to 'string[]'." );
+fail( ['a'=>null], ['a'=>'string[]'], "Value of testVar[a] does not match to 'string[]'." );
 
 # List (array indexed 0 by one)
 fail( ['a'=>''], ['string', 'string'], 'Value of testVar must be a list.' );
@@ -134,11 +134,11 @@ $value = [
 	'address' => [
 		'city' => 'Sin',
 		'street' => 'Jump',
-		'zip' => NULL,
+		'zip' => null,
 		'country' => 'Radio',
 	],
 	'score' => 69,
-	'active' => TRUE,
+	'active' => true,
 ];
 
 $schema = [
