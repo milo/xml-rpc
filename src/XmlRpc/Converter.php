@@ -47,8 +47,12 @@ class Converter
 		$doc = $this->createDom();
 
 		Helpers::handleXmlErrors();
-		if (@!$doc->loadXML($xml, $libXmlOptions | LIBXML_NOBLANKS)) {  # @ - E_WARNING on empty XML string
-			throw new MalformedXmlException('XML source loading failed.', $xml, Helpers::fetchXmlErrors());
+		try {
+			if (@!$doc->loadXML($xml, $libXmlOptions | LIBXML_NOBLANKS)) {  # @ - E_WARNING on empty XML string
+				throw new MalformedXmlException('XML source loading failed.', $xml, Helpers::fetchXmlErrors());
+			}
+		} catch (\ValueError $e) { # Since PHP 8.0
+			throw new MalformedXmlException('XML source loading failed.', $xml, $e);
 		}
 
 		if (!$doc->relaxNGValidate(__DIR__ . DIRECTORY_SEPARATOR . 'xml-rpc.rng')) {
